@@ -28,10 +28,7 @@ void	check_digit(char *str)
 	while(str[i])
 	{
 		if(!ft_isdigit(str[i]))
-		{
-			ft_putstr_fd("Error\n", STDERR_FILENO);
-			exit(EXIT_FAILURE);
-		}
+      handle_error(EXIT_FAILURE);
 		i++;
 	}
 }
@@ -60,4 +57,23 @@ long	ft_check_atol(char *str)
 	if (negative)
 		result *= -1;
 	return (result);
+}
+
+void  trash_list(t_stack_list **lst)
+{
+  t_stack_list  *roaming;
+  t_stack_list  *current;
+
+  if (!lst)
+    return ;
+  roaming = lst->head;
+  while (roaming)
+  {
+    current = roaming;
+    roaming = roaming->next;
+    free(current->data);
+    free(current);
+  }
+  lst->head = NULL;
+  lst->tail = NULL;
 }

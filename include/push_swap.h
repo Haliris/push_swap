@@ -12,12 +12,14 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+# include "libft.h"
 
 long	ft_check_atol(char *str);
 void	handle_error(int code);
 t_stack	*create_node(long *content);
 t_stack	*add_node(t_stack *head, t_stack *tail, long *data);
 t_stack_list	*initialize(long *args, size_t size);
+void  trash_list(t_stack_list **lst);
 long	*parse_args(char **av, size_t size);
 typedef struct s_stack 
 {
