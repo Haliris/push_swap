@@ -30,6 +30,11 @@ void	push(t_stack_list *giver, t_stack_list *receiver)
 		giver->head = giver->head->next;
 		giver->head->prev = giver_temp->prev;
 	}
+  else
+  {
+    giver->head = NULL;
+    giver->tail = NULL;
+  }
 	free(giver_temp);
 	giver->size -= 1;
 }
