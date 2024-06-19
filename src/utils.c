@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:32:25 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/18 14:52:28 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:53:40 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,21 @@ long	ft_check_atol(char *str)
 	return (result);
 }
 
-void  trash_list(t_stack_list **lst)
+void  trash_list(t_stack_list *lst)
 {
-  t_stack_list  *roaming;
-  t_stack_list  *current;
+  t_stack  *head;
+  t_stack  *roaming;
 
   if (!lst)
     return ;
-  roaming = lst->head;
+  head = lst->head;
+  roaming = head->next;
   while (roaming)
   {
-    current = roaming;
+    free(roaming->data);
+	free(head);
+	head = roaming;
     roaming = roaming->next;
-    free(current->data);
-    free(current);
   }
   lst->head = NULL;
   lst->tail = NULL;

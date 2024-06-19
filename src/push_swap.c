@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/18 16:07:57 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:43:29 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int	main(int ac, char **av)
 		i++;
 	}
 	free(args_array);
-	cleanup_list(s_stack_list_a);
+	trash_list(s_stack_list_a);
 }

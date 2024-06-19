@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:06:59 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/18 16:10:09 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:45:26 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_stack_list	*initialize(long *args, size_t size)
 		if (!s_stack_list->tail)
 		{
 			free(args);
-			clean_up(s_stack_list);
+			trash_list(s_stack_list);
 			handle_error(EXIT_FAILURE);
 		}
 	}
