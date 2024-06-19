@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 16:44:05 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:46:12 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,24 @@
 
 #include <stdio.h>
 
-void	sort_turk(t_stack_list *stack_a)
+int	sort_turk(t_stack_list *stack_a)
 {
 	long			maximum;
 	long			minimum;
 	t_stack_list	*stack_b;
 
+	stack_b = ft_calloc(1, sizeof(t_stack_list));
+	if (!stack_b)
+		return (-1);
+	stack_b->head = NULL;
+	stack_b->tail = NULL;
+	stack_b->size = 0;
+	minimum = 0;
+	maximum = 0;
 	pb(stack_a, stack_b);
 	pb(stack_a, stack_b);
+	trash_list(stack_b);
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -34,16 +44,16 @@ int	main(int ac, char **av)
 	i = 0;
 	args_array = parse_args(av, ac);
 	stack_a = initialize(args_array, ac);
-	//sort_turk(stack_a);
+	sort_turk(stack_a);
 	
 	t_stack *current;
 	current = stack_a->head;
-	while (i < 50)
+	while (i < stack_a->size)
 	{
 		printf("%ld\n",*(current->data));
 		current = current->prev;
 		i++;
 	}
 	trash_list(stack_a);
-	free(stack_a);
+	free(args_array);
 }

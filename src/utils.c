@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:32:25 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 16:42:25 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:58:58 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ long	ft_check_atol(char *str)
 	}
 	check_digit(str);
 	while (str[i])
-	{ result = result * 10 + (str[i] - 48); i++;
+	{
+		result = result * 10 + (str[i] - 48);
+		i++;
 	}
 	if (negative)
 		result *= -1;
@@ -58,22 +60,21 @@ long	ft_check_atol(char *str)
 
 void	trash_list(t_stack_list *lst)
 {
-	t_stack	*head;
 	t_stack	*roaming;
 	t_stack	*trash;
+	size_t	i;
 
 	if (!lst || lst->head == NULL)
 		return ;
-	head = lst->head;
-	roaming = head->next;
-	while (roaming != head)
+	roaming = lst->head;
+	i = 0;
+	while (i < lst->size - 1)
 	{
 		trash = roaming;
 		roaming = roaming->next;
 		free(trash);
+		i++;
 	}
-	free(head->data);
-	free(head);
-	lst->head = NULL;
-	lst->tail = NULL;
+	free(roaming);
+	free(lst);
 }

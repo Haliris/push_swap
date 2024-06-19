@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:12:55 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 15:59:36 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:52:55 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	push(t_stack_list *giver, t_stack_list *receiver)
 	t_stack	*giver_temp;
 
 	add_node_front(receiver, giver->head->data);
-	if (!receiver->head)
+	if (receiver->size == 0)
 	{
 		trash_list(giver);
 		trash_list(receiver);
@@ -26,8 +26,9 @@ void	push(t_stack_list *giver, t_stack_list *receiver)
 	}
 	giver_temp = giver->head;
 	giver->head = giver->head->next;
-	giver_temp->data = NULL;
+	giver->head->prev = giver_temp->prev;
 	free(giver_temp);
+	giver->size -= 1;
 }
 
 void	pa(t_stack_list *stack_a, t_stack_list *stack_b)
