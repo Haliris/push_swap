@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 16:19:50 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:44:05 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int	main(int ac, char **av)
 		current = current->prev;
 		i++;
 	}
-/*	trash_list(stack_a);
-	free(args_array); */
+	trash_list(stack_a);
+	free(stack_a);
 }

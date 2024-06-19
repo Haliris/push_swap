@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 16:07:11 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:48:27 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_stack_list
 {
 	t_stack	*head;
 	t_stack	*tail;
+	size_t	size;
 }	t_stack_list;
 long			ft_check_atol(char *str);
 void			handle_error(int code);
