@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 11:56:58 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:16:40 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,19 @@ t_stack			*create_node(long *content);
 t_stack			*add_node(t_stack *head, t_stack *tail, long *data);
 t_stack_list	*initialize(long *args, size_t size);
 void			trash_list(t_stack_list *lst);
+void			swap(t_stack_list *stack);
+void			sa(t_stack_list *stack_a);
+void			sb(t_stack_list *stack_b);
+void			ss(t_stack_list *stack_a, t_stack_list *stack_b);
+void			push(t_stack_list giver, t_stack_list receiver);
+void			pa(t_stack_list stack_a, t_stack_list stack_b);
+void			pb(t_stack_list stack_a, t_stack_list stack_b);
+void			rotate(t_stack_list stack);
+void			ra(t_stack_list a);
+void			rb(t_stack_list b);
+void			rr(t_stack_list a, t_stack_list b);
+void			reverse_rotate(t_stack_list stack);
+void			rra(t_stack_list a);
+void			rrb(t_stack_list b);
+void			rrr(t_stack_list a, t_stack_list b);
 #endif
