@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 14:29:46 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:07:11 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define PUSH_SWAP_H
 # include "libft.h"
 
-long			ft_check_atol(char *str);
-void			handle_error(int code);
-long			*parse_args(char **av, size_t size);
 typedef struct s_stack
 {
 	struct s_stack	*next;
@@ -28,8 +25,14 @@ typedef struct s_stack_list
 	t_stack	*head;
 	t_stack	*tail;
 }	t_stack_list;
+long			ft_check_atol(char *str);
+void			handle_error(int code);
+long			*parse_args(char **av, size_t size);
 t_stack			*create_node(long *content);
-t_stack			*add_node(t_stack *head, t_stack *tail, long *data);
+void			add_node(t_stack_list *stack, long *data);
+void			add_node_front(t_stack_list *stack, long *data);
+void			replace_head(t_stack_list *stack, t_stack *new_head);
+void			replace_tail(t_stack_list *stack, t_stack *new_tail);
 t_stack_list	*initialize(long *args, size_t size);
 void			trash_list(t_stack_list *lst);
 void			swap(t_stack_list *stack);

@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:32:25 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 11:59:29 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:18:19 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,15 @@ void	trash_list(t_stack_list *lst)
 		return ;
 	head = lst->head;
 	roaming = head->next;
-	while (roaming)
+	while (roaming != lst->tail)
 	{
 		free(roaming->data);
 		free(head);
 		head = roaming;
 		roaming = roaming->next;
 	}
+	free(roaming->data);
+	free(roaming);
 	lst->head = NULL;
 	lst->tail = NULL;
 }
