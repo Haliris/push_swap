@@ -13,25 +13,25 @@
 #include "libft.h"
 #include "push_swap.h"
 
-void	rotate(t_stack_list *stack)
+void	rotate(t_lst *stack)
 {
 	stack->tail = stack->head;
 	stack->head = stack->head->next;
 }
 
-void	ra(t_stack_list *a)
+void	ra(t_lst *a)
 {
 	rotate(a);
 	ft_putstr_fd("ra\n", STDOUT_FILENO);
 }
 
-void	rb(t_stack_list *b)
+void	rb(t_lst *b)
 {
 	rotate(b);
 	ft_putstr_fd("rb\n", STDOUT_FILENO);
 }
 
-void	rr(t_stack_list *a, t_stack_list *b)
+void	rr(t_lst *a, t_lst *b)
 {
 	rotate(a);
 	rotate(b);

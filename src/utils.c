@@ -58,7 +58,7 @@ long	ft_check_atol(char *str)
 	return (result);
 }
 
-void	trash_list(t_stack_list **lst)
+void	trash_list(t_lst **lst)
 {
 	t_stack	*roaming;
 	t_stack	*trash;

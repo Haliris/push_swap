@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 11:23:24 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:07:40 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,79 @@
 
 #include <stdio.h>
 
-int	sort_turk(t_stack_list *stack_a)
+t_stack	*find_cheapest_move(t_lst *sa, t_lst *sb)
 {
-	long			maximum;
-	long			minimum;
-	t_stack_list	*stack_b;
+	t_stack *roaming;
+	t_stack	*prospect;
+	size_t	min_cost;
+	size_t	current_cost;
 
-	stack_b = ft_calloc(1, sizeof(t_stack_list));
+	roaming = stack_a->head;
+	prospect = stack_a->head;
+	min_cost = get_inter(roaming->cost[0], roaming->cost[1], roaming);
+	while (roaming != stack_a->tail)
+	{
+		current_cost = get_inter(roaming->cost[0], roaming->cost[1], roaming);
+		if (min_cost > current_cost)
+		{
+			min_cost = current_cost;
+			prospect = roaming;
+		}
+		roaming = roaming->next;
+	}
+	return (prospect);
+}
+
+
+void	move(t_stack *node, t_lst *stack_a, t_lst *stack_b)
+{
+
+}
+
+void	perform_move(t_lst *stack_a, t_lst *stack_b)
+{
+	t_stack	*to_move;
+
+	to_move = find_cheapest_move(stack_a, stack_b);
+	move(to_move, stack_a, stack_b);
+}
+
+void	find_moves(t_lst *stack_a, t_lst *stack_b)
+{
+	long	extremes[2];
+	int		median;
+	t_stack	*target;
+
+	operation = 0;
+	median = (stack_a->size / 2) + (stack_a->size % 2);
+	find_extremes(stack_b, extremes);
+	while (stack_a->size > 3);
+	{
+		update_cost(stack_a, stack_b, extremes, median);
+		perform_move(stack_a, stack_b);
+	}
+}
+
+int	sort_turk(t_lst *stack_a)
+{
+	t_lst	*stack_b;
+
+	stack_b = ft_calloc(1, sizeof(t_lst));
 	if (!stack_b)
-		return (-1);
+		return (-1); //catch error better
 	stack_b->head = NULL;
 	stack_b->tail = NULL;
 	stack_b->size = 0;
-	minimum = 0;
-	maximum = 0;
 	pb(stack_a, stack_b);
 	pb(stack_a, stack_b);
+	find_moves(stack_a, stack_b);
 	trash_list(&stack_b);
 	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	t_stack_list	*stack_a;
+	t_lst	*stack_a;
 	long			*args_array;
 	int				i;
 
@@ -45,7 +95,7 @@ int	main(int ac, char **av)
 	args_array = parse_args(av, ac);
 	stack_a = initialize(args_array, ac);
 	sort_turk(stack_a);
-	
+
 	t_stack *current;
 	current = stack_a->head;
 	while (i < stack_a->size)

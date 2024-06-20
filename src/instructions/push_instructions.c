@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "push_swap.h"
 
-void	remove_node_front(t_stack_list	*stack)
+void	remove_node_front(t_lst	*stack)
 {
 	t_stack	*temp;
 
@@ -32,7 +32,7 @@ void	remove_node_front(t_stack_list	*stack)
 	stack->size -= 1;
 }
 
-void	push(t_stack_list *giver, t_stack_list *receiver)
+void	push(t_lst *giver, t_lst *receiver)
 {
 	t_stack	*giver_temp;
 
@@ -48,7 +48,7 @@ void	push(t_stack_list *giver, t_stack_list *receiver)
 	remove_node_front(giver);
 }
 
-void	pa(t_stack_list *stack_a, t_stack_list *stack_b)
+void	pa(t_lst *stack_a, t_lst *stack_b)
 {
 	if (!stack_a)
 		return ;
@@ -56,7 +56,7 @@ void	pa(t_stack_list *stack_a, t_stack_list *stack_b)
 	ft_putstr_fd("pa\n", STDOUT_FILENO);
 }
 
-void	pb(t_stack_list *stack_a, t_stack_list *stack_b)
+void	pb(t_lst *stack_a, t_lst *stack_b)
 {
 	if (!stack_b)
 		return ;

@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "push_swap.h"
 
-void	swap(t_stack_list *stack)
+void	swap(t_lst *stack)
 {
 	t_stack	*temp;
 
@@ -24,19 +24,19 @@ void	swap(t_stack_list *stack)
 	stack->head->next = temp;
 }
 
-void	sa(t_stack_list *stack_a)
+void	sa(t_lst *stack_a)
 {
 	swap(stack_a);
 	ft_putstr_fd("sa\n", STDOUT_FILENO);
 }
 
-void	sb(t_stack_list *stack_b)
+void	sb(t_lst *stack_b)
 {
 	swap(stack_b);
 	ft_putstr_fd("sb\n", STDOUT_FILENO);
 }
 
-void	ss(t_stack_list *stack_a, t_stack_list *stack_b)
+void	ss(t_lst *stack_a, t_lst *stack_b)
 {
 	swap(stack_a);
 	swap(stack_b);

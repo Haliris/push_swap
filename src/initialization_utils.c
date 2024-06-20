@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "push_swap.h"
 
-void	replace_head(t_stack_list *stack, t_stack *new_head)
+void	replace_head(t_lst *stack, t_stack *new_head)
 {
 	if (!stack->tail)
 	{
@@ -30,7 +30,7 @@ void	replace_head(t_stack_list *stack, t_stack *new_head)
 	stack->head = new_head;
 }
 
-void	replace_tail(t_stack_list *stack, t_stack *new_tail)
+void	replace_tail(t_lst *stack, t_stack *new_tail)
 {
 	if (!stack->tail)
 	{

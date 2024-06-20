@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:06:59 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 11:24:03 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:29:29 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ t_stack	*create_node(long *content)
 	s_stack->data = content;
 	s_stack->next = NULL;
 	s_stack->prev = NULL;
+	s_stack->cost[0] = 0;
+	s_stack->cost[1] = 0;
+	s_stack->synchro = FALSE;
 	return (s_stack);
 }
 
-void	add_node(t_stack_list *stack, long *data)
+void	add_node(t_lst *stack, long *data)
 {
 	t_stack	*new_tail;
 
@@ -35,7 +38,7 @@ void	add_node(t_stack_list *stack, long *data)
 		stack->head = create_node(data);
 		stack->size += 1;
 		if (!stack->head)
-		{	
+		{
 			trash_list(&stack);
 			return ;
 		}
@@ -44,14 +47,14 @@ void	add_node(t_stack_list *stack, long *data)
 	new_tail = create_node(data);
 	stack->size += 1;
 	if (!new_tail)
-	{	
+	{
 		trash_list(&stack);
 		return ;
 	}
 	replace_tail(stack, new_tail);
 }
 
-void	add_node_front(t_stack_list *stack, long *data)
+void	add_node_front(t_lst *stack, long *data)
 {
 	t_stack	*new_head;
 
@@ -72,13 +75,13 @@ void	add_node_front(t_stack_list *stack, long *data)
 	}
 }
 
-t_stack_list	*initialize(long *args, size_t size)
+t_lst	*initialize(long *args, size_t size)
 {
 	size_t			i;
-	t_stack_list	*stack;
+	t_lst	*stack;
 
 	i = 0;
-	stack = ft_calloc(1, sizeof(t_stack_list));
+	stack = ft_calloc(1, sizeof(t_lst));
 	if (!stack)
 	{
 		ft_free(args);
