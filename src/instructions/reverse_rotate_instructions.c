@@ -15,6 +15,8 @@
 
 void	reverse_rotate(t_lst *stack)
 {
+  if (!stack->head || !stack->tail)
+    return ;
 	stack->head = stack->tail;
 	stack->tail = stack->tail->prev;
 }

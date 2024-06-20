@@ -31,6 +31,7 @@ int	is_after_median(t_lst *stack_a, t_stack *node)
 	int		depth;
 	t_stack	*roaming;
 
+  depth = 0;
 	median = (stack_a->size / 2) + (stack_a->size % 2);
 	roaming = stack_a->head;
 	while (roaming != node)
@@ -47,12 +48,12 @@ void	set_synchro(size_t i, size_t depth, t_lst *lst_a, t_stack *sa)
 {
 	if (is_after_median(lst_a, sa))
 	{
-		if (depth > i)
+		if (depth >= i)
 			sa->synchro = TRUE;
 	}
 	else if (!is_after_median(lst_a, sa))
 	{
-		if (depth < i)
+		if (depth <= i)
 			sa->synchro = TRUE;
 	}
 }

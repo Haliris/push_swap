@@ -15,6 +15,8 @@
 
 void	rotate(t_lst *stack)
 {
+  if (!stack->tail || !stack->head)
+    return ;
 	stack->tail = stack->head;
 	stack->head = stack->head->next;
 }

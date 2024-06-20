@@ -40,7 +40,7 @@ t_stack	*find_cheapest_move(t_lst *sa, t_lst *sb)
 
 void	synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b)
 {
-	while (cost_a || cost_b)
+	while (cost_a && cost_b)
 	{
 		rrr(a, b);
 		cost_a--;
@@ -60,7 +60,7 @@ void	synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b)
 
 void	synchro_move_up(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b)
 {
-	while (cost_a || cost_b)
+	while (cost_a && cost_b)
 	{
 		rr(a, b);
 		cost_a--;
@@ -85,9 +85,9 @@ void	synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node)
 
 	cost_a = node->cost[0];
 	cost_b = node->cost[1];
-	if (is_after_median(stack_a, node) == FALSE)
+	if (is_after_median(stack_a, node) == TRUE)
 		synchro_move_down(cost_a, cost_b, stack_a, stack_b);
-	else if (is_after_median(stack_a, node) == TRUE)
+	else if (is_after_median(stack_a, node) == FALSE)
 		synchro_move_up(cost_a, cost_b, stack_a, stack_b);
 }
 
@@ -156,6 +156,34 @@ void	perform_move(t_lst *stack_a, t_lst *stack_b)
 	move(to_move, stack_a, stack_b);
 }
 
+void  print_costs(t_lst *sa)
+{
+  t_stack *roaming;
+  size_t  i;
+
+  i = 0;
+  roaming = sa->head;
+  while (i < sa->size)
+  {
+    printf("Cost0:%ld\n", roaming->cost[0]);
+    printf("Cost1:%ld\n", roaming->cost[1]);
+    roaming = roaming->next;
+    i++;
+  }
+}
+
+void  print_list(t_lst *stack)
+{
+  int i = 0;
+  t_stack *roaming = stack->head;
+  while(i < stack->size)
+  {
+    printf("stack:%ld\n", *roaming->data);
+    roaming = roaming->next;
+    i++;
+  }
+}
+
 void	find_moves(t_lst *stack_a, t_lst *stack_b)
 {
 	long	*extremes[2];
@@ -167,18 +195,9 @@ void	find_moves(t_lst *stack_a, t_lst *stack_b)
 	{
 		find_extremes(stack_b, extremes);
 		update_cost(stack_a, stack_b, extremes, median);
+//    print_costs(stack_a);
 		perform_move(stack_a, stack_b);
-	}
-	size_t i;
-	t_stack	*roaming;
-
-	i = 0;
-	roaming = stack_b->head;
-	while (i < stack_b->size)
-	{
-		printf("%ld\n",*(roaming->data));
-		roaming = roaming->next;
-		i++;
+//    print_list(stack_b);
 	}
 }
 
@@ -195,7 +214,7 @@ int	sort_turk(t_lst *stack_a)
 	pb(stack_a, stack_b);
 	pb(stack_a, stack_b);
 	find_moves(stack_a, stack_b);
-	trash_list(&stack_b);
+	//trash_list(&stack_b);
 	return (0);
 }
 

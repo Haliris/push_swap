@@ -36,7 +36,7 @@ void	find_extremes(t_lst *stack, long *extremes[])
 size_t	find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data)
 {
 	t_stack	*roaming;
-	long	*benchmark;
+	long	benchmark;
 	size_t	depth;
 	size_t	depth_result;
 	size_t	median;
@@ -46,12 +46,13 @@ size_t	find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data)
 	depth_result = 0;
 	median = (lb->size / 2) + (lb->size % 2);
 	roaming = lb->head;
-	benchmark = roaming->data;
+	benchmark =  1;
+  index = 0;
 	while (roaming != lb->tail)
 	{
-		if (*data > *roaming->data && *roaming->data >= *benchmark)
+		if (*data > *roaming->data && *roaming->data >= benchmark)
 		{
-			benchmark = roaming->data;
+			benchmark = *roaming->data;
 			depth_result = depth;
 		}
 		roaming = roaming->next;
@@ -61,7 +62,7 @@ size_t	find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data)
 		else if (index > median)
 			depth--;
 	}
-	if (*data > *roaming->data && *roaming->data >= *benchmark)
+	if (*data > *roaming->data && *roaming->data >= benchmark)
 		depth_result = depth;
 	set_synchro(index, median, la, sa);
 	return (depth_result);
