@@ -62,7 +62,7 @@ void			rrr(t_lst *a, t_lst *b);
 
 void			find_extremes(t_lst *stack, long *extremes[]);
 size_t			find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data);
-size_t			find_b_extreme(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme[]);
+size_t			find_b_extreme(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme);
 size_t			find_b_cost(t_lst *la, t_stack *sa, t_lst *sb, long *extreme[]);
 void			update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med);
 size_t			get_inter(size_t cost_a, size_t cost_b, t_stack *node);
