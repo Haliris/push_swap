@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:32:25 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 19:04:26 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:30:36 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,22 @@ long	ft_check_atol(char *str)
 	return (result);
 }
 
-void	trash_list(t_stack_list *lst)
+void	trash_list(t_stack_list **lst)
 {
 	t_stack	*roaming;
 	t_stack	*trash;
 	size_t	i;
 
-	if (!lst || lst->head == NULL)
+	if (!lst)
 		return ;
-	if (lst->size == 0)
+	if ((*lst)->size == 0)
 	{
-		free(lst);
+		free(*lst);
 		return ;
 	}
-	roaming = lst->head;
+	roaming = (*lst)->head;
 	i = 0;
-	while (i < lst->size - 1)
+	while (i < (*lst)->size - 1)
 	{
 		trash = roaming;
 		roaming = roaming->next;
@@ -81,5 +81,14 @@ void	trash_list(t_stack_list *lst)
 		i++;
 	}
 	free(roaming);
-	free(lst);
+	free(*lst);
+	*lst = NULL;
+}
+
+void	ft_free(void *ptr)
+{
+	if (!ptr)
+		return ;
+	else
+		free(ptr);
 }

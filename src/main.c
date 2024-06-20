@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 18:46:12 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:23:24 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	sort_turk(t_stack_list *stack_a)
 	maximum = 0;
 	pb(stack_a, stack_b);
 	pb(stack_a, stack_b);
-	trash_list(stack_b);
+	trash_list(&stack_b);
 	return (0);
 }
 
@@ -54,6 +54,6 @@ int	main(int ac, char **av)
 		current = current->prev;
 		i++;
 	}
-	trash_list(stack_a);
-	free(args_array);
+	trash_list(&stack_a);
+ 	ft_free(args_array);
 }

@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 18:58:05 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:22:35 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ long			*parse_args(char **av, size_t size);
 t_stack			*create_node(long *content);
 void			add_node(t_stack_list *stack, long *data);
 void			add_node_front(t_stack_list *stack, long *data);
+void			remove_node_front(t_stack_list	*stack);
 void			replace_head(t_stack_list *stack, t_stack *new_head);
 void			replace_tail(t_stack_list *stack, t_stack *new_tail);
 t_stack_list	*initialize(long *args, size_t size);
-void			trash_list(t_stack_list *lst);
+void			trash_list(t_stack_list **lst);
+void			ft_free(void *ptr);
 void			swap(t_stack_list *stack);
 void			sa(t_stack_list *stack_a);
 void			sb(t_stack_list *stack_b);

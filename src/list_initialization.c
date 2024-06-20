@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:06:59 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 17:58:56 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:24:03 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	add_node(t_stack_list *stack, long *data)
 		stack->size += 1;
 		if (!stack->head)
 		{	
-			trash_list(stack);
+			trash_list(&stack);
 			return ;
 		}
 		return ;
@@ -45,7 +45,7 @@ void	add_node(t_stack_list *stack, long *data)
 	stack->size += 1;
 	if (!new_tail)
 	{	
-		trash_list(stack);
+		trash_list(&stack);
 		return ;
 	}
 	replace_tail(stack, new_tail);
@@ -60,14 +60,14 @@ void	add_node_front(t_stack_list *stack, long *data)
 		stack->head = create_node(data);
 		stack->size += 1;
 		if (!stack->head)
-			return (trash_list(stack));
+			return (trash_list(&stack));
 	}
 	else
 	{
 		new_head = create_node(data);
 		stack->size += 1;
 		if (!new_head)
-			return (trash_list(stack));
+			return (trash_list(&stack));
 		replace_head(stack, new_head);
 	}
 }
@@ -81,7 +81,7 @@ t_stack_list	*initialize(long *args, size_t size)
 	stack = ft_calloc(1, sizeof(t_stack_list));
 	if (!stack)
 	{
-		free(args);
+		ft_free(args);
 		handle_error(EXIT_FAILURE);
 	}
 	stack->size = 0;
@@ -90,7 +90,7 @@ t_stack_list	*initialize(long *args, size_t size)
 		add_node(stack, &args[i++]);
 		if (!stack)
 		{
-			free(args);
+			ft_free(args);
 			handle_error(EXIT_FAILURE);
 		}
 	}

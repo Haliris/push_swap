@@ -6,37 +6,46 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:12:55 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 19:23:57 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:26:51 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
+void	remove_node_front(t_stack_list	*stack)
+{
+	t_stack	*temp;
+
+	temp = stack->head;
+	if (stack->size > 1)
+	{
+		stack->head = stack->head->next;
+		stack->head->prev = temp->prev;
+	}
+	else
+	{
+		stack->head = NULL;
+		stack->tail = NULL;
+	}
+	ft_free(temp);
+	stack->size -= 1;
+}
+
 void	push(t_stack_list *giver, t_stack_list *receiver)
 {
 	t_stack	*giver_temp;
 
+	if (giver->size == 0)
+		return ;
 	add_node_front(receiver, giver->head->data);
 	if (receiver->size == 0)
 	{
-		trash_list(giver);
-		trash_list(receiver);
+		trash_list(&giver);
+		trash_list(&receiver);
 		handle_error(EXIT_FAILURE);
 	}
-	giver_temp = giver->head;
-	if (giver->size > 1)
-	{
-		giver->head = giver->head->next;
-		giver->head->prev = giver_temp->prev;
-	}
-  else
-  {
-    giver->head = NULL;
-    giver->tail = NULL;
-  }
-	free(giver_temp);
-	giver->size -= 1;
+	remove_node_front(giver);
 }
 
 void	pa(t_stack_list *stack_a, t_stack_list *stack_b)
