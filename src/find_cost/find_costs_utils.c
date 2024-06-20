@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:45:00 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 17:23:44 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:41:21 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	is_after_median(t_lst *stack_a, t_stack *node)
 	median = (stack_a->size / 2) + (stack_a->size % 2);
 	roaming = stack_a->head;
 	while (roaming != node)
+	{
+		roaming = roaming->next;
 		depth++;
+	}
 	if (depth > median)
 		return (1);
 	return (0);

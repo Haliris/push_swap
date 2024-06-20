@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:27:32 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 17:37:18 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:18:47 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	find_extremes(t_lst *stack, long *extremes[])
 	extremes[1] = roaming->data;
 	while (roaming != stack->tail)
 	{
-		if (roaming->data > extremes[1])
+		if (*roaming->data > *extremes[1])
 			extremes[1] = roaming->data;
-		else if (roaming->data < extremes[0])
+		else if (*roaming->data < *extremes[0])
 			extremes[0] = roaming->data;
 		roaming = roaming->next;
 	}
-	if (roaming->data > extremes[1])
+	if (*roaming->data > *extremes[1])
 		extremes[1] = roaming->data;
-	else if (roaming->data < extremes[0])
+	else if (*roaming->data < *extremes[0])
 		extremes[0] = roaming->data;
 }
 

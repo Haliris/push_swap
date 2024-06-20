@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 17:28:15 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:03:02 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	rotate_a(t_lst *stack_a, t_stack *node, size_t cost_a)
 {
 	if (is_after_median(stack_a, node) == TRUE)
 	{
-		while (cost_a);
+		while (cost_a)
 		{
 			rra(stack_a);
 			cost_a--;
@@ -164,10 +164,21 @@ void	find_moves(t_lst *stack_a, t_lst *stack_b)
 
 	median = (stack_a->size / 2) + (stack_a->size % 2);
 	find_extremes(stack_b, extremes);
-	while (stack_a->size > 3);
+	while (stack_a->size > 3)
 	{
 		update_cost(stack_a, stack_b, extremes, median);
 		perform_move(stack_a, stack_b);
+	}
+	size_t i;
+	t_stack	*roaming;
+
+	i = 0;
+	roaming = stack_b->head;
+	while (i < stack_b->size)
+	{
+		printf("%ld\n",*(roaming->data));
+		roaming = roaming->next;
+		i++;
 	}
 }
 
@@ -198,7 +209,7 @@ int	main(int ac, char **av)
 	args_array = parse_args(av, ac);
 	stack_a = initialize(args_array, ac);
 	sort_turk(stack_a);
-
+/*
 	t_stack *current;
 	current = stack_a->head;
 	while (i < stack_a->size)
@@ -209,4 +220,5 @@ int	main(int ac, char **av)
 	}
 	trash_list(&stack_a);
  	ft_free(args_array);
+*/
 }
