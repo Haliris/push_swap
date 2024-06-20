@@ -6,26 +6,26 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:45:00 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 16:02:10 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:23:44 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
 
-size_t	get_inter(size_t cost_a, size_t cost_b, t_stack node)
+size_t	get_inter(size_t cost_a, size_t cost_b, t_stack *node)
 {
 	if (node->synchro == FALSE)
-		return (cost_b + cost_a)
+		return (cost_b + cost_a);
 	if (cost_a < cost_b)
-		return (cost_b - cost_a)
+		return (cost_b - cost_a);
 	else if (cost_b < cost_a)
-		return (cost_a - cost_b)
+		return (cost_a - cost_b);
 	else
 		return (0);
 }
 
-int	is_after_median(t_lst stack_a, t_stack node)
+int	is_after_median(t_lst *stack_a, t_stack *node)
 {
 	int		median;
 	int		depth;
@@ -40,7 +40,7 @@ int	is_after_median(t_lst stack_a, t_stack node)
 	return (0);
 }
 
-void	set_synchro_status(size_t i, size_t depth, t_lst *lst_a, t_stack *sa)
+void	set_synchro(size_t i, size_t depth, t_lst *lst_a, t_stack *sa)
 {
 	if (is_after_median(lst_a, sa))
 	{

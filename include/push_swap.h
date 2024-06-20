@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 15:59:21 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:36:36 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,21 @@ void			rra(t_lst *a);
 void			rrb(t_lst *b);
 void			rrr(t_lst *a, t_lst *b);
 
-void			find_extremes(t_lst *stack, long extremes[]);
-size_t			find_b_intermediate(t_lst *sb, long data);
-size_t			find_b_extreme(t_lst *sb, long *extreme);
-size_t			find_b_cost(t_lst *la, t_stack *sa, t_lst *sb, long *extreme);
-void			update_cost(t_lst *sa, t_lst *sb, long *extreme, int med);
-size_t			find_intersection(size_t cost_a, size_t cost_b);
-int				is_after_median(t_lst stack_a, t_stack node);
-void			set_synchro_status(size_t i, size_t depth, t_lst *lst_a, t_stack *sa);
+void			find_extremes(t_lst *stack, long *extremes[]);
+size_t			find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data);
+size_t			find_b_extreme(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme[]);
+size_t			find_b_cost(t_lst *la, t_stack *sa, t_lst *sb, long *extreme[]);
+void			update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med);
+size_t			get_inter(size_t cost_a, size_t cost_b, t_stack *node);
+int				is_after_median(t_lst *stack_a, t_stack *node);
+void			set_synchro(size_t i, size_t depth, t_lst *lst_a, t_stack *sa);
+
+t_stack			*find_cheapest_move(t_lst *sa, t_lst *sb);
+void			synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
+void			synchro_move_up(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
+void			synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node);
+void			move(t_stack *node, t_lst *stack_a, t_lst *stack_b);
+void			perform_move(t_lst *stack_a, t_lst *stack_b);
+void			find_moves(t_lst *stack_a, t_lst *stack_b);
 
 #endif
