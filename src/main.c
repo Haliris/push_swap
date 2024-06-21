@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 19:08:30 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:19:01 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,99 +38,6 @@ t_stack	*find_cheapest_move(t_lst *sa, t_lst *sb)
 	return (prospect);
 }
 
-void	synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b)
-{
-	while (cost_a && cost_b)
-	{
-		rrr(a, b);
-		cost_a--;
-		cost_b--;
-	}
-	if (cost_a)
-	{
-		rra(a);
-		cost_a--;
-	}
-	if (cost_b)
-	{
-		rrb(b);
-		cost_b--;
-	}
-}
-
-void	synchro_move_up(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b)
-{
-	while (cost_a && cost_b)
-	{
-		rr(a, b);
-		cost_a--;
-		cost_b--;
-	}
-	while (cost_a)
-	{
-		ra(a);
-		cost_a--;
-	}
-	while (cost_b)
-	{
-		rb(b);
-		cost_b--;
-	}
-}
-
-void	synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node)
-{
-	size_t	cost_a;
-	size_t	cost_b;
-
-	cost_a = node->cost[0];
-	cost_b = node->cost[1];
-	if (is_after_median(stack_a, node) == TRUE)
-		synchro_move_down(cost_a, cost_b, stack_a, stack_b);
-	else if (is_after_median(stack_a, node) == FALSE)
-		synchro_move_up(cost_a, cost_b, stack_a, stack_b);
-}
-
-void	rotate_a(t_lst *stack_a, t_stack *node, size_t cost_a)
-{
-	if (is_after_median(stack_a, node) == TRUE)
-	{
-		while (cost_a)
-		{
-			rra(stack_a);
-			cost_a--;
-		}
-	}
-	else
-	{
-		while(cost_a)
-		{
-			ra(stack_a);
-			cost_a--;
-		}
-	}
-}
-
-void	rotate_b(t_lst *stack_b, t_stack *node, t_lst *stack_a, size_t cost_b)
-{
-	if (is_after_median(stack_a, node) == TRUE)
-	{
-		while (cost_b)
-		{
-			rb(stack_b);
-			cost_b--;
-		}
-	}
-	else
-	{
-		while (cost_b)
-		{
-			rrb(stack_b);
-			cost_b--;
-		}
-	}
-}
-
 void	move(t_stack *node, t_lst *stack_a, t_lst *stack_b)
 {
 	size_t	cost_a;
@@ -138,6 +45,8 @@ void	move(t_stack *node, t_lst *stack_a, t_lst *stack_b)
 
 	cost_a = node->cost[0];
 	cost_b = node->cost[1];
+	// printf("cost_a = %ld\n", cost_a);
+	// printf("cost_b = %ld\n", cost_b);
 	if (node->synchro == TRUE)
 		synchro_rotate(stack_a, stack_b, node);
 	else
@@ -145,6 +54,7 @@ void	move(t_stack *node, t_lst *stack_a, t_lst *stack_b)
 		rotate_a(stack_a, node, cost_a);
 		rotate_b(stack_b, node, stack_a, cost_b);
 	}
+	//printf("pushing to b:%ld\n", *node->data);
 	pb(stack_a, stack_b);
 }
 
@@ -176,12 +86,17 @@ void  print_list(t_lst *stack)
 {
   int i = 0;
   t_stack *roaming = stack->head;
-  while(i < stack->size)
+//   printf("stack->size:%ld\n", stack->size);
+  while(roaming != stack->tail)
   {
-    printf("stack:%ld\n", *roaming->data);
+	if (roaming == stack->head)
+		printf("head ");
+    printf("%ld\n", *roaming->data);
     roaming = roaming->next;
     i++;
   }
+  printf("tail:%ld\n", *roaming->data);
+  roaming = NULL;
 }
 
 void	find_moves(t_lst *stack_a, t_lst *stack_b)
@@ -195,9 +110,82 @@ void	find_moves(t_lst *stack_a, t_lst *stack_b)
 	{
 		find_extremes(stack_b, extremes);
 		update_cost(stack_a, stack_b, extremes, median);
-//    print_costs(stack_a);
+//	    print_costs(stack_a);
 		perform_move(stack_a, stack_b);
-//    print_list(stack_b);
+	}
+}
+
+size_t		find_position(t_lst *stack_a, long *data)
+{
+	size_t	depth;
+	size_t	cost;
+	size_t	median;
+	int		maximum;
+	t_stack	*roaming;
+
+	depth = 0;
+	cost = 0;
+	maximum = INT_MAX;
+	median = (stack_a->size / 2) + (stack_a->size % 2);
+	roaming = stack_a->head;
+	while (roaming != stack_a->tail)
+	{
+		if (*data < *roaming->data && *roaming->data <= maximum)
+		{
+			cost = depth;
+			maximum = *roaming->data;
+		}
+		depth++;
+		roaming = roaming->next;
+	}
+	if (*data < *roaming->data && *roaming->data <= maximum)
+		cost = depth + 1;
+	return (cost);
+}
+
+void	move_back(size_t cost, t_lst *stack_a, t_lst *stack_b)
+{
+	size_t	median;
+
+	median = (stack_a->size / 2) + (stack_a->size % 2);
+	if (cost > median)
+	{
+		cost -= median;
+		while (cost)
+		{
+			cost--;
+			rra(stack_a);
+		}
+	}
+	else
+	{
+		while (cost)
+		{
+			ra(stack_a);
+			cost--;
+		}
+	}
+	pa(stack_a, stack_b);
+}
+
+void	push_back(t_lst *stack_a, t_lst *stack_b)
+{
+	t_stack	*roaming;
+
+	roaming = stack_b->head;
+	while (stack_b->size)
+	{
+//		printf("size of stack_a: %ld\n", stack_a->size);
+//		printf("size of stack_b: %ld\n", stack_b->size);
+		printf("------\n");
+		printf("stack_a\n:");
+		print_list(stack_a);
+		roaming->cost[0] = find_position(stack_a, roaming->data);
+		printf("------\n");
+		printf("Pushing to a: %ld\n", *roaming->data);
+		move_back(roaming->cost[0], stack_a, stack_b);
+		if (stack_b->size)
+			roaming = stack_b->head;
 	}
 }
 
@@ -214,6 +202,14 @@ int	sort_turk(t_lst *stack_a)
 	pb(stack_a, stack_b);
 	pb(stack_a, stack_b);
 	find_moves(stack_a, stack_b);
+	printf("stack a after find moves:\n");
+	print_list(stack_a);
+	printf("-----\n");
+	printf("stack_b after find_moves\n");
+	print_list(stack_b);
+	printf("-----\n");
+	push_back(stack_a, stack_b);
+
 	//trash_list(&stack_b);
 	return (0);
 }

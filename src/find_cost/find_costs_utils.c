@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:45:00 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 17:41:21 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:15:10 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ int	is_after_median(t_lst *stack_a, t_stack *node)
 	return (0);
 }
 
-void	set_synchro(size_t i, size_t depth, t_lst *lst_a, t_stack *sa)
+void	set_synchro(size_t median, size_t index, t_lst *lst_a, t_stack *sa)
 {
 	if (is_after_median(lst_a, sa))
 	{
-		if (depth >= i)
+		if (index >= median)
 			sa->synchro = TRUE;
 	}
 	else if (!is_after_median(lst_a, sa))
 	{
-		if (depth <= i)
+		if (index <= median)
 			sa->synchro = TRUE;
 	}
 }

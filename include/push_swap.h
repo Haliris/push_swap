@@ -6,13 +6,14 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 18:15:11 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:04:43 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include "libft.h"
+# include <limits.h>
 # define TRUE 1
 # define FALSE 0
 
@@ -67,7 +68,7 @@ size_t			find_b_cost(t_lst *la, t_stack *sa, t_lst *sb, long *extreme[]);
 void			update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med);
 size_t			get_inter(size_t cost_a, size_t cost_b, t_stack *node);
 int				is_after_median(t_lst *stack_a, t_stack *node);
-void			set_synchro(size_t i, size_t depth, t_lst *lst_a, t_stack *sa);
+void			set_synchro(size_t median, size_t index, t_lst *lst_a, t_stack *sa);
 
 t_stack			*find_cheapest_move(t_lst *sa, t_lst *sb);
 void			synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
@@ -76,5 +77,11 @@ void			synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node);
 void			move(t_stack *node, t_lst *stack_a, t_lst *stack_b);
 void			perform_move(t_lst *stack_a, t_lst *stack_b);
 void			find_moves(t_lst *stack_a, t_lst *stack_b);
+
+void		synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
+void		synchro_move_up(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
+void		synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node);
+void		rotate_a(t_lst *stack_a, t_stack *node, size_t cost_a);
+void		rotate_b(t_lst *stack_b, t_stack *node, t_lst *stack_a, size_t cost_b);
 
 #endif

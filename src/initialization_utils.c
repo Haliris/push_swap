@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:47:47 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 17:48:01 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:36:45 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ void	replace_head(t_lst *stack, t_stack *new_head)
 	}
 	else
 	{
-		new_head->prev = stack->tail;
+		stack->head->prev = new_head;
 		stack->tail->next = new_head;
 	}
+	new_head->prev = stack->tail;
 	new_head->next = stack->head;
 	stack->head = new_head;
 }

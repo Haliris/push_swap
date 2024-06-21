@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:32:25 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 11:30:36 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:29:22 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ long	ft_check_atol(char *str)
 			negative = 1;
 		i++;
 	}
-	check_digit(str);
+	check_digit(&str[i]);
 	while (str[i])
 	{
 		result = result * 10 + (str[i] - 48);

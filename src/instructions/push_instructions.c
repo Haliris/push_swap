@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:12:55 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 16:31:21 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:54:10 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ void	remove_node_front(t_lst	*stack)
 	t_stack	*temp;
 
 	temp = stack->head;
+	if (!stack->head)
+		return ;
 	if (stack->size > 1)
 	{
 		stack->head = stack->head->next;
-		stack->head->prev = temp->prev;
+		stack->head->prev = stack->tail;
+		stack->tail->next = stack->head;
+
 	}
 	else
 	{

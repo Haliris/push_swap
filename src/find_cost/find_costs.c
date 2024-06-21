@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:27:32 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 18:18:47 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:26:41 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,37 @@ size_t	find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data)
 	size_t	depth;
 	size_t	depth_result;
 	size_t	median;
+	size_t	position_index;
 	size_t	index;
 
 	depth = 0;
 	depth_result = 0;
 	median = (lb->size / 2) + (lb->size % 2);
 	roaming = lb->head;
-	benchmark =  1;
-  index = 0;
+	benchmark =  INT_MIN;
+  	position_index = 0;
+	index = 0;
 	while (roaming != lb->tail)
 	{
 		if (*data > *roaming->data && *roaming->data >= benchmark)
 		{
 			benchmark = *roaming->data;
 			depth_result = depth;
+			position_index = index;
 		}
 		roaming = roaming->next;
 		index++;
-		if (index < median)
+		if (index <= median)
 			depth++;
 		else if (index > median)
 			depth--;
 	}
 	if (*data > *roaming->data && *roaming->data >= benchmark)
-		depth_result = depth;
-	set_synchro(index, median, la, sa);
+	{
+		position_index = index;
+		depth_result = depth + 1;
+	}
+	set_synchro(median, position_index, la, sa);
 	return (depth_result);
 }
 
@@ -83,7 +89,7 @@ size_t	find_b_extreme(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme)
 	{
 		roaming = roaming->next;
 		index++;
-		if (index < b_median)
+		if (index <= b_median)
 			depth++;
 		else if (index > b_median)
 			depth--;
@@ -98,6 +104,7 @@ size_t	find_b_cost(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme[])
 	size_t	cost;
 
 	cost = 0;
+	sa->synchro = FALSE;
 	if (*sa->data < *extreme[0])
 		cost = find_b_extreme(lst_a, sa, sb, extreme[0]);
 	else if (*sa->data > *extreme[1])
@@ -118,13 +125,13 @@ void	update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med)
 	index = 0;
 	roaming = sa->head;
 	median = (sa->size / 2) + (sa->size % 2);
-	while (roaming != sa->tail)
+	while (*roaming->data != *sa->tail->data)
 	{
 		roaming->cost[0] = depth;
 		roaming->cost[1] = find_b_cost(sa, roaming, sb, extreme);
 		roaming = roaming->next;
 		index++;
-		if (index < median)
+		if (index <= median)
 			depth++;
 		else if (index > median)
 			depth--;
