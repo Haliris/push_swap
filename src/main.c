@@ -138,7 +138,7 @@ size_t		find_position(t_lst *stack_a, long *data)
 		roaming = roaming->next;
 	}
 	if (*data < *roaming->data && *roaming->data <= maximum)
-		cost = depth + 1;
+		cost = depth;
 	return (cost);
 }
 
@@ -167,25 +167,60 @@ void	move_back(size_t cost, t_lst *stack_a, t_lst *stack_b)
 	pa(stack_a, stack_b);
 }
 
+size_t  find_extreme_pos(t_lst *stack, long data)
+{
+  t_stack *roaming;
+  size_t  depth;
+
+  roaming = stack->head;
+  depth = 0;
+  while (*roaming->data != data)
+  {
+    roaming = roaming->next;
+    depth++;
+  }
+  return (depth);
+}
+
 void	push_back(t_lst *stack_a, t_lst *stack_b)
 {
 	t_stack	*roaming;
-
+  long    *extremes[2];
 	roaming = stack_b->head;
 	while (stack_b->size)
 	{
 //		printf("size of stack_a: %ld\n", stack_a->size);
 //		printf("size of stack_b: %ld\n", stack_b->size);
-		printf("------\n");
-		printf("stack_a\n:");
-		print_list(stack_a);
-		roaming->cost[0] = find_position(stack_a, roaming->data);
-		printf("------\n");
-		printf("Pushing to a: %ld\n", *roaming->data);
+		// printf("------\n");
+		// printf("stack_a\n:");
+		// print_list(stack_a);
+    find_extremes(stack_a, extremes);
+    if (*roaming->data > *extremes[1])
+      roaming->cost[0] = find_extreme_pos(stack_a, *extremes[0]);
+    else if (*roaming->data < *extremes[0])
+      roaming->cost[0] = find_extreme_pos(stack_a, *extremes[0]);
+    else
+	  	roaming->cost[0] = find_position(stack_a, roaming->data);
+		// printf("------\n");
+		// printf("Pushing to a: %ld\n", *roaming->data);
 		move_back(roaming->cost[0], stack_a, stack_b);
 		if (stack_b->size)
 			roaming = stack_b->head;
 	}
+//   printf("------\n");
+//   printf("a before final sort\n");
+//   print_list(stack_a);
+}
+
+void  sort_3(t_lst *stack)
+{
+  long  *extremes[2];
+
+  find_extremes(stack, extremes);
+  while (*stack->tail->data != *extremes[1])
+    ra(stack);
+  if (*stack->head->data != *extremes[0])
+    sa(stack);
 }
 
 int	sort_turk(t_lst *stack_a)
@@ -204,10 +239,14 @@ int	sort_turk(t_lst *stack_a)
 	// printf("stack a after find moves:\n");
 	// print_list(stack_a);
 	// printf("-----\n");
-	// printf("stack_b after find_moves\n");
-	// print_list(stack_b);
-	// printf("-----\n");
-//	print_list(stack_b);
+	printf("stack_b after find_moves\n");
+	print_list(stack_b);
+	printf("-----\n");
+  sort_3(stack_a);
+  printf("stack_a after find_moves\n");
+	print_list(stack_a);
+	printf("-----\n");
+
 	push_back(stack_a, stack_b);
 
 	//trash_list(&stack_b);
@@ -236,7 +275,10 @@ int	main(int ac, char **av)
 	sort_turk(stack_a);
 	find_extremes(stack_a, extremes);
 	final_sort(stack_a, *extremes[0]); //to opimize
-	//print_list(stack_a);
+	printf("_________\n");
+	printf("FINAL LIST\n");
+	printf("________\n");
+	print_list(stack_a);
 /*
 	t_stack *current;
 	current = stack_a->head;
