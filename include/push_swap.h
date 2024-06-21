@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/21 15:04:43 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:03:29 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ size_t			get_inter(size_t cost_a, size_t cost_b, t_stack *node);
 int				is_after_median(t_lst *stack_a, t_stack *node);
 void			set_synchro(size_t median, size_t index, t_lst *lst_a, t_stack *sa);
 
-t_stack			*find_cheapest_move(t_lst *sa, t_lst *sb);
+t_stack			*find_cheapest_move(t_lst *sa);
 void			synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
 void			synchro_move_up(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
 void			synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node);

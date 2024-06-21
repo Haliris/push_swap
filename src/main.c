@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/21 16:19:01 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:57:36 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 
-t_stack	*find_cheapest_move(t_lst *sa, t_lst *sb)
+t_stack	*find_cheapest_move(t_lst *sa)
 {
 	t_stack *roaming;
 	t_stack	*prospect;
@@ -62,31 +62,31 @@ void	perform_move(t_lst *stack_a, t_lst *stack_b)
 {
 	t_stack	*to_move;
 
-	to_move = find_cheapest_move(stack_a, stack_b);
+	to_move = find_cheapest_move(stack_a);
 	move(to_move, stack_a, stack_b);
 }
 
-void  print_costs(t_lst *sa)
-{
-  t_stack *roaming;
-  size_t  i;
+// void  print_costs(t_lst *sa)
+// {
+//   t_stack *roaming;
+//   size_t  i;
 
-  i = 0;
-  roaming = sa->head;
-  while (i < sa->size)
-  {
-    printf("Cost0:%ld\n", roaming->cost[0]);
-    printf("Cost1:%ld\n", roaming->cost[1]);
-    roaming = roaming->next;
-    i++;
-  }
-}
+//   i = 0;
+//   roaming = sa->head;
+//   while (i < sa->size)
+//   {
+//     printf("Cost0:%ld\n", roaming->cost[0]);
+//     printf("Cost1:%ld\n", roaming->cost[1]);
+//     roaming = roaming->next;
+//     i++;
+//   }
+// }
 
 void  print_list(t_lst *stack)
 {
   int i = 0;
   t_stack *roaming = stack->head;
-//   printf("stack->size:%ld\n", stack->size);
+  printf("stack->size:%ld\n", stack->size);
   while(roaming != stack->tail)
   {
 	if (roaming == stack->head)
@@ -103,7 +103,6 @@ void	find_moves(t_lst *stack_a, t_lst *stack_b)
 {
 	long	*extremes[2];
 	int		median;
-	t_stack	*target;
 
 	median = (stack_a->size / 2) + (stack_a->size % 2);
 	while (stack_a->size > 3)
@@ -202,16 +201,26 @@ int	sort_turk(t_lst *stack_a)
 	pb(stack_a, stack_b);
 	pb(stack_a, stack_b);
 	find_moves(stack_a, stack_b);
-	printf("stack a after find moves:\n");
-	print_list(stack_a);
-	printf("-----\n");
-	printf("stack_b after find_moves\n");
-	print_list(stack_b);
-	printf("-----\n");
+	// printf("stack a after find moves:\n");
+	// print_list(stack_a);
+	// printf("-----\n");
+	// printf("stack_b after find_moves\n");
+	// print_list(stack_b);
+	// printf("-----\n");
+//	print_list(stack_b);
 	push_back(stack_a, stack_b);
 
 	//trash_list(&stack_b);
 	return (0);
+}
+
+
+void	final_sort(t_lst *stack, long min)
+{
+	while (*stack->head->data != min)
+	{
+		ra(stack);
+	}
 }
 
 int	main(int ac, char **av)
@@ -219,11 +228,15 @@ int	main(int ac, char **av)
 	t_lst	*stack_a;
 	long			*args_array;
 	int				i;
+	long			*extremes[2];
 
 	i = 0;
 	args_array = parse_args(av, ac);
 	stack_a = initialize(args_array, ac);
 	sort_turk(stack_a);
+	find_extremes(stack_a, extremes);
+	final_sort(stack_a, *extremes[0]); //to opimize
+	//print_list(stack_a);
 /*
 	t_stack *current;
 	current = stack_a->head;
