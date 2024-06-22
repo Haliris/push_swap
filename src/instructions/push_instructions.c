@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:12:55 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/22 20:02:21 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:54:10 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,8 @@ void	remove_node_front(t_lst	*stack)
 		stack->head = NULL;
 		stack->tail = NULL;
 	}
+	ft_free(temp);
 	stack->size -= 1;
-}
-
-void	add_node_front(t_lst *stack, t_stack *giver_node)
-{
-	t_stack	*new_head;
-
-	if (!stack->head)
-	{
-		stack->head = giver_node;
-		stack->size += 1;
-	}
-	else
-	{
-		new_head = giver_node;
-		stack->size += 1;
-		replace_head(stack, new_head);
-	}
 }
 
 void	push(t_lst *giver, t_lst *receiver)
@@ -58,7 +42,7 @@ void	push(t_lst *giver, t_lst *receiver)
 
 	if (giver->size == 0)
 		return ;
-	add_node_front(receiver, giver->head);
+	add_node_front(receiver, giver->head->data);
 	if (receiver->size == 0)
 	{
 		trash_list(&giver);

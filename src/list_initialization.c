@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:06:59 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/22 20:01:27 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:29:29 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,27 @@ void	add_node(t_lst *stack, long *data)
 		return ;
 	}
 	replace_tail(stack, new_tail);
+}
+
+void	add_node_front(t_lst *stack, long *data)
+{
+	t_stack	*new_head;
+
+	if (!stack->head)
+	{
+		stack->head = create_node(data);
+		stack->size += 1;
+		if (!stack->head)
+			return (trash_list(&stack));
+	}
+	else
+	{
+		new_head = create_node(data);
+		stack->size += 1;
+		if (!new_head)
+			return (trash_list(&stack));
+		replace_head(stack, new_head);
+	}
 }
 
 t_lst	*initialize(long *args, size_t size)

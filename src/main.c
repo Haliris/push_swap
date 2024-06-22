@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/22 20:02:33 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:57:36 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,13 +318,19 @@ int	sort_turk(t_lst *stack_a)
 	pb(stack_a, stack_b);
 	find_moves(stack_a, stack_b);
 	// printf("stack a after find moves:\n");
-	//print_list(stack_a);
-	printf("-----\n");
-	printf("stack_b\n");
+	// print_list(stack_a);
+	// printf("-----\n");
+	printf("stack_b after find_moves\n");
 	print_list(stack_b);
-	sort_3(stack_a);
+	printf("-----\n");
+  sort_3(stack_a);
+  printf("stack_a after find_moves\n");
+	print_list(stack_a);
+	printf("-----\n");
+
 	push_back(stack_a, stack_b);
-	ft_free(stack_b);
+
+	//trash_list(&stack_b);
 	return (0);
 }
 
@@ -350,8 +356,10 @@ int	main(int ac, char **av)
 	sort_turk(stack_a);
 	find_extremes(stack_a, extremes);
 	final_sort(stack_a, *extremes[0]); //to opimize
-	trash_list(&stack_a);
- 	ft_free(args_array);
+	printf("_________\n");
+	printf("FINAL LIST\n");
+	printf("________\n");
+	print_list(stack_a);
 /*
 	t_stack *current;
 	current = stack_a->head;
@@ -362,5 +370,6 @@ int	main(int ac, char **av)
 		i++;
 	}
 	trash_list(&stack_a);
+ 	ft_free(args_array);
 */
 }
