@@ -16,87 +16,144 @@
 void	find_extremes(t_lst *stack, long *extremes[])
 {
 	t_stack	*roaming;
+	size_t 	index;
+	
+	index = 0;
 	roaming = stack->head;
 	extremes[0] = roaming->data;
 	extremes[1] = roaming->data;
-	while (roaming != stack->tail)
+	while (index < stack->size)
 	{
 		if (*roaming->data > *extremes[1])
 			extremes[1] = roaming->data;
 		else if (*roaming->data < *extremes[0])
 			extremes[0] = roaming->data;
 		roaming = roaming->next;
+		index ++;
 	}
-	if (*roaming->data > *extremes[1])
-		extremes[1] = roaming->data;
-	else if (*roaming->data < *extremes[0])
-		extremes[0] = roaming->data;
+}
+
+size_t	parse_b_down(t_lst *sb, long *data)
+{
+	t_stack	*roaming;
+	long	biggest_min;
+	size_t	depth;
+	size_t	cost;
+
+	biggest_min = INT_MIN;
+	roaming = sb->head;
+	cost = 0;
+	depth = 0;
+
+	while (depth < sb->size)
+	{
+		if (*data > *roaming->data && *roaming->data >= biggest_min)
+		{
+			biggest_min = *roaming->data;
+			cost = depth;
+		}
+		roaming = roaming->next;
+		depth++;
+	}
+	return (cost);
+}
+
+size_t	parse_b_up(t_lst *sb, long *data)
+{
+	t_stack	*roaming;
+	long	biggest_min;
+	size_t	depth;
+	size_t	cost;
+
+	biggest_min = INT_MIN;
+	roaming = sb->tail;
+	cost = 0;
+	depth = 1;
+
+	while (depth <= sb->size)
+	{
+		if (*data > *roaming->data && *roaming->data >= biggest_min)
+		{
+			biggest_min = *roaming->data;
+			cost = depth;
+		}
+		roaming = roaming->prev;
+		depth++;
+	}
+	return (cost);
 }
 
 size_t	find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data)
 {
 	t_stack	*roaming;
-	long	benchmark;
-	size_t	depth;
-	size_t	depth_result;
-	size_t	median;
-	size_t	position_index;
-	size_t	index;
+	size_t	cost_up;
+	size_t	cost_down;
 
+	cost_down = parse_b_down(lb, data);
+	cost_up = parse_b_up(lb, data);
+	if (cost_down <= cost_up)
+	{
+		if (is_after_median(la, sa) == FALSE)
+			sa->synchro = TRUE;
+		return (cost_down);
+	}
+	else
+	{
+		if (is_after_median(la, sa) == TRUE)
+			sa->synchro = TRUE;
+		return (cost_up);
+	}
+}
+
+size_t	parse_b_down_extreme(t_lst *sb, long *extreme)
+{
+	t_stack	*roaming;
+	size_t	depth;
+
+	roaming = sb->head;
 	depth = 0;
-	depth_result = 0;
-	median = (lb->size / 2) + (lb->size % 2);
-	roaming = lb->head;
-	benchmark =  INT_MIN;
-  	position_index = 0;
-	index = 0;
-	while (roaming != lb->tail)
+	while (*roaming->data != *extreme)
 	{
-		if (*data > *roaming->data && *roaming->data >= benchmark)
-		{
-			benchmark = *roaming->data;
-			depth_result = depth;
-			position_index = index;
-		}
 		roaming = roaming->next;
-		index++;
-		if (index <= median)
-			depth++;
-		else if (index > median)
-			depth--;
+		depth++;
 	}
-	if (*data > *roaming->data && *roaming->data >= benchmark)
+	return (depth);
+}
+
+size_t	parse_b_up_extreme(t_lst *sb, long *extreme)
+{
+	t_stack	*roaming;
+	size_t	depth;
+
+	roaming = sb->tail;
+	depth = 1;
+	while (*roaming->data != *extreme)
 	{
-		position_index = index;
-		depth_result = depth + 1;
+		roaming = roaming->prev;
+		depth++;
 	}
-	set_synchro(median, position_index, la, sa);
-	return (depth_result);
+	return (depth);
 }
 
 size_t	find_b_extreme(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme)
 {
-	t_stack	*roaming;
-	size_t	b_median;
-	size_t	depth;
-	size_t	index;
+	size_t	cost_up;
+	size_t	cost_down;
 
-	roaming = sb->head;
-	b_median = (sb->size / 2) + (sb->size % 2);
-	depth = 0;
-	index = 0;
-	while (*roaming->data != *extreme)
+	cost_down = parse_b_down_extreme(sb, extreme);
+	cost_up = parse_b_up_extreme(sb, extreme);
+	if (cost_down <= cost_up)
 	{
-		roaming = roaming->next;
-		index++;
-		if (index <= b_median)
-			depth++;
-		else if (index > b_median)
-			depth--;
+		if (is_after_median(lst_a, sa) == FALSE)
+			sa->synchro = TRUE;
+		return (cost_down);
 	}
-	set_synchro(index, b_median, lst_a, sa);
-	extreme = roaming->data;
-	return (depth);
+	else
+	{
+		if (is_after_median(lst_a, sa) == TRUE)
+			sa->synchro = TRUE;
+		return (cost_up);
+	}
 }
 
 size_t	find_b_cost(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme[])
@@ -105,9 +162,7 @@ size_t	find_b_cost(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme[])
 
 	cost = 0;
 	sa->synchro = FALSE;
-	if (*sa->data < *extreme[0])
-		cost = find_b_extreme(lst_a, sa, sb, extreme[0]);
-	else if (*sa->data > *extreme[1])
+	if (*sa->data < *extreme[0] || *sa->data > *extreme[1])
 		cost = find_b_extreme(lst_a, sa, sb, extreme[1]);
 	else
 		cost = find_b_inter(lst_a, sa, sb, sa->data);
@@ -117,25 +172,18 @@ size_t	find_b_cost(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme[])
 void	update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med)
 {
 	t_stack	*roaming;
-	size_t	depth;
-	size_t	median;
 	size_t	index;
+	int		after_median;
 
-	depth = 0;
 	index = 0;
 	roaming = sa->head;
-	median = (sa->size / 2) + (sa->size % 2);
-	while (*roaming->data != *sa->tail->data)
+	after_median = FALSE;
+	while (index < sa->size)
 	{
-		roaming->cost[0] = depth;
+		roaming->cost[0] = find_extreme_pos(sa, *roaming->data, &after_median);
 		roaming->cost[1] = find_b_cost(sa, roaming, sb, extreme);
 		roaming = roaming->next;
 		index++;
-		if (index <= median)
-			depth++;
-		else if (index > median)
-			depth--;
+		after_median = FALSE;
 	}
-	roaming->cost[0] = depth;
-	roaming->cost[1] = find_b_cost(sa, roaming, sb, extreme);
 }

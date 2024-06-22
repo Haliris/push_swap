@@ -15,6 +15,17 @@
 
 #include <stdio.h>
 
+size_t	get_median(t_lst *stack)
+{
+	size_t	median;
+
+	if (stack->size > 3)
+		median = 2;
+	else
+		median = MEDIAN(stack);
+	return (median);
+
+}
 t_stack	*find_cheapest_move(t_lst *sa)
 {
 	t_stack *roaming;
@@ -114,42 +125,78 @@ void	find_moves(t_lst *stack_a, t_lst *stack_b)
 	}
 }
 
-size_t		find_position(t_lst *stack_a, long *data)
+size_t		parse_a_down(t_lst *stack, long *data, int prospect)
 {
-	size_t	depth;
-	size_t	cost;
-	size_t	median;
-	int		maximum;
 	t_stack	*roaming;
+	size_t	cost;
+	size_t	depth;
 
-	depth = 0;
 	cost = 0;
-	maximum = INT_MAX;
-	median = (stack_a->size / 2) + (stack_a->size % 2);
-	roaming = stack_a->head;
-	while (roaming != stack_a->tail)
+	depth = 0;
+	roaming = stack->head;
+	while (roaming != stack->tail)
 	{
-		if (*data < *roaming->data && *roaming->data <= maximum)
+		if (*data < *roaming->data && *roaming->data <= prospect)
 		{
 			cost = depth;
-			maximum = *roaming->data;
+			prospect = *roaming->data;
 		}
 		depth++;
 		roaming = roaming->next;
 	}
-	if (*data < *roaming->data && *roaming->data <= maximum)
+	if (*data < *roaming->data && *roaming->data <= prospect)
+		cost = depth;
+	return (cost);
+	}
+
+size_t		parse_a_up(t_lst *stack, long *data, int prospect)
+{
+	t_stack	*roaming;
+	size_t	cost;
+	size_t	depth;
+
+	cost = 0;
+	depth = 1;
+	roaming = stack->tail;
+	while (roaming != stack->head)
+	{
+		if (*data < *roaming->data && *roaming->data <= prospect)
+		{
+			cost = depth;
+			prospect = *roaming->data;
+		}
+		depth++;
+		roaming = roaming->prev;
+	}
+	if (*data < *roaming->data && *roaming->data <= prospect)
 		cost = depth;
 	return (cost);
 }
 
-void	move_back(size_t cost, t_lst *stack_a, t_lst *stack_b)
+size_t		find_position(t_lst *stack_a, long *data, int *after_median)
 {
-	size_t	median;
+	size_t	cost_up;
+	size_t	cost_down;
+	int		maximum;
+	t_stack	*roaming;
 
-	median = (stack_a->size / 2) + (stack_a->size % 2);
-	if (cost > median)
+	maximum = INT_MAX;
+	cost_up = parse_a_up(stack_a, data, maximum);
+	cost_down = parse_a_down(stack_a, data, maximum);
+	if (cost_down <= cost_up)
+		return (cost_down);
+	else
 	{
-		cost -= median;
+		*after_median = TRUE;
+		return (cost_up);
+	}
+}
+
+void	move_back(size_t cost, t_lst *stack_a, t_lst *stack_b, int after_median)
+{
+
+	if (after_median)
+	{
 		while (cost)
 		{
 			cost--;
@@ -167,19 +214,53 @@ void	move_back(size_t cost, t_lst *stack_a, t_lst *stack_b)
 	pa(stack_a, stack_b);
 }
 
-size_t  find_extreme_pos(t_lst *stack, long data)
+size_t parse_a_down_extreme(t_lst *stack, long data)
 {
-  t_stack *roaming;
-  size_t  depth;
+	t_stack *roaming;
+	size_t depth;
 
-  roaming = stack->head;
-  depth = 0;
-  while (*roaming->data != data)
+	roaming = stack->head;
+	depth = 0;
+	while (*roaming->data != data)
   {
+	depth++;
     roaming = roaming->next;
-    depth++;
   }
   return (depth);
+}
+
+size_t parse_a_up_extreme(t_lst *stack, long data)
+{
+	t_stack *roaming;
+	size_t depth;
+
+	roaming = stack->tail;
+	depth = 1;
+	while (*roaming->data != data)
+  {
+	depth++;
+    roaming = roaming->prev;
+  }
+  return (depth);
+}
+
+size_t  find_extreme_pos(t_lst *stack, long data, int *after_median)
+{
+  size_t	cost_up;
+  size_t	cost_down;
+
+  cost_up = parse_a_up_extreme(stack, data);
+  cost_down = parse_a_down_extreme(stack, data);
+  if (cost_down <= cost_up)
+  {
+	*after_median = FALSE;
+	return(cost_down);
+  }
+  else
+{
+	*after_median = TRUE;
+	return (cost_up);
+}
 }
 
 void	push_back(t_lst *stack_a, t_lst *stack_b)
@@ -187,6 +268,7 @@ void	push_back(t_lst *stack_a, t_lst *stack_b)
 	t_stack	*roaming;
   long    *extremes[2];
 	roaming = stack_b->head;
+	int		after_median;
 	while (stack_b->size)
 	{
 //		printf("size of stack_a: %ld\n", stack_a->size);
@@ -194,16 +276,15 @@ void	push_back(t_lst *stack_a, t_lst *stack_b)
 		// printf("------\n");
 		// printf("stack_a\n:");
 		// print_list(stack_a);
-    find_extremes(stack_a, extremes);
-    if (*roaming->data > *extremes[1])
-      roaming->cost[0] = find_extreme_pos(stack_a, *extremes[0]);
-    else if (*roaming->data < *extremes[0])
-      roaming->cost[0] = find_extreme_pos(stack_a, *extremes[0]);
-    else
-	  	roaming->cost[0] = find_position(stack_a, roaming->data);
+		after_median = FALSE;
+		find_extremes(stack_a, extremes);
+		if (*roaming->data > *extremes[1] || *roaming->data < *extremes[0])
+			roaming->cost[0] = find_extreme_pos(stack_a, *extremes[0], &after_median);
+		else
+	  		roaming->cost[0] = find_position(stack_a, roaming->data, &after_median);
 		// printf("------\n");
 		// printf("Pushing to a: %ld\n", *roaming->data);
-		move_back(roaming->cost[0], stack_a, stack_b);
+		move_back(roaming->cost[0], stack_a, stack_b, after_median);
 		if (stack_b->size)
 			roaming = stack_b->head;
 	}

@@ -43,17 +43,3 @@ int	is_after_median(t_lst *stack_a, t_stack *node)
 		return (1);
 	return (0);
 }
-
-void	set_synchro(size_t median, size_t index, t_lst *lst_a, t_stack *sa)
-{
-	if (is_after_median(lst_a, sa))
-	{
-		if (index >= median)
-			sa->synchro = TRUE;
-	}
-	else if (!is_after_median(lst_a, sa))
-	{
-		if (index <= median)
-			sa->synchro = TRUE;
-	}
-}

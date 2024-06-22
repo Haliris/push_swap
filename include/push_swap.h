@@ -16,6 +16,7 @@
 # include <limits.h>
 # define TRUE 1
 # define FALSE 0
+# define MEDIAN(stack) (((stack->size) + (stack->size % 2)) / 2);
 
 typedef struct s_stack
 {
@@ -77,6 +78,7 @@ void			synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node);
 void			move(t_stack *node, t_lst *stack_a, t_lst *stack_b);
 void			perform_move(t_lst *stack_a, t_lst *stack_b);
 void			find_moves(t_lst *stack_a, t_lst *stack_b);
+size_t			get_median(t_lst *stack);
 
 void		synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
 void		synchro_move_up(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
@@ -84,4 +86,6 @@ void		synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node);
 void		rotate_a(t_lst *stack_a, t_stack *node, size_t cost_a);
 void		rotate_b(t_lst *stack_b, t_stack *node, t_lst *stack_a, size_t cost_b);
 
+
+size_t  find_extreme_pos(t_lst *stack, long data, int *after_median);
 #endif
