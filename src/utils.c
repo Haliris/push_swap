@@ -58,32 +58,44 @@ long	ft_check_atol(char *str)
 	return (result);
 }
 
+#include <stdio.h>
+
 void	trash_list(t_lst **lst)
 {
-	t_stack	*roaming;
 	t_stack	*trash;
+	t_stack	*roaming;
 	size_t	i;
 
-	if (!lst)
+	if (!lst || !*lst)
 		return ;
 	if ((*lst)->size == 0)
 	{
 		free(*lst);
 		return ;
 	}
-	roaming = (*lst)->head;
 	i = 0;
-	while (i < (*lst)->size - 1)
+	roaming = (*lst)->head;
+	while (i < (*lst)->size)
 	{
+		if (roaming->next && roaming->prev)
+			roaming->prev->next = NULL;
+		if (roaming->prev && roaming->next)
+			roaming->next->prev = NULL;
 		trash = roaming;
 		roaming = roaming->next;
+		trash->next = NULL;
+		trash->prev = NULL;
 		free(trash);
+		if (!roaming)
+			break;
 		i++;
+		trash = NULL;
 	}
 	free(roaming);
 	free(*lst);
 	*lst = NULL;
 }
+
 
 void	ft_free(void *ptr)
 {
