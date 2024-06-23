@@ -28,18 +28,18 @@ size_t	get_inter(size_t cost_a, size_t cost_b, t_stack *node)
 int	is_after_median(t_lst *stack_a, t_stack *node)
 {
 	int		median;
-	int		depth;
+	int		index;
 	t_stack	*roaming;
 
-  depth = 0;
+ 	index = 1;
 	median = (stack_a->size / 2) + (stack_a->size % 2);
 	roaming = stack_a->head;
 	while (roaming != node)
 	{
 		roaming = roaming->next;
-		depth++;
+		index++;
 	}
-	if (depth > median)
+	if (index > median)
 		return (1);
 	return (0);
 }
