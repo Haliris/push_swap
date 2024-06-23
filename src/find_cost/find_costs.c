@@ -13,6 +13,8 @@
 #include "libft.h"
 #include "push_swap.h"
 
+#include <stdio.h>
+
 void	find_extremes(t_lst *stack, long *extremes[])
 {
 	t_stack	*roaming;
@@ -178,8 +180,22 @@ void	update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med)
 	index = 0;
 	roaming = sa->head;
 	after_median = FALSE;
+  if (sb->size >= 22)
+  {
+
+  }
+
 	while (index < sa->size)
 	{
+    // if (*roaming->data == 82 && sb->size >= 96)
+	// { 
+	// 	printf("82 being evaluated\n");
+	// 	printf("stack_a:\n");
+   	// 	printf("------\n");
+	// 	print_list(sa);
+	// 	printf("stack_b:\n");
+	// 	print_list(sb);
+	// }
 		roaming->cost[0] = find_extreme_pos(sa, *roaming->data, &after_median);
 		roaming->cost[1] = find_b_cost(sa, roaming, sb, extreme);
 		roaming = roaming->next;

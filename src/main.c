@@ -62,8 +62,8 @@ void	move(t_stack *node, t_lst *stack_a, t_lst *stack_b)
 		synchro_rotate(stack_a, stack_b, node);
 	else
 	{
-		rotate_a(stack_a, node, cost_a);
 		rotate_b(stack_b, node, stack_a, cost_b);
+		rotate_a(stack_a, node, cost_a);
 	}
 	//printf("pushing to b:%ld\n", *node->data);
 	pb(stack_a, stack_b);
@@ -120,7 +120,6 @@ void	find_moves(t_lst *stack_a, t_lst *stack_b)
 	{
 		find_extremes(stack_b, extremes);
 		update_cost(stack_a, stack_b, extremes, median);
-//	    print_costs(stack_a);
 		perform_move(stack_a, stack_b);
 	}
 }
@@ -271,26 +270,16 @@ void	push_back(t_lst *stack_a, t_lst *stack_b)
 	int		after_median;
 	while (stack_b->size)
 	{
-//		printf("size of stack_a: %ld\n", stack_a->size);
-//		printf("size of stack_b: %ld\n", stack_b->size);
-		// printf("------\n");
-		// printf("stack_a\n:");
-		// print_list(stack_a);
 		after_median = FALSE;
 		find_extremes(stack_a, extremes);
 		if (*roaming->data > *extremes[1] || *roaming->data < *extremes[0])
 			roaming->cost[0] = find_extreme_pos(stack_a, *extremes[0], &after_median);
 		else
 	  		roaming->cost[0] = find_position(stack_a, roaming->data, &after_median);
-		// printf("------\n");
-		// printf("Pushing to a: %ld\n", *roaming->data);
 		move_back(roaming->cost[0], stack_a, stack_b, after_median);
 		if (stack_b->size)
 			roaming = stack_b->head;
 	}
-//   printf("------\n");
-//   printf("a before final sort\n");
-//   print_list(stack_a);
 }
 
 void  sort_3(t_lst *stack)
@@ -317,17 +306,10 @@ int	sort_turk(t_lst *stack_a)
 	pb(stack_a, stack_b);
 	pb(stack_a, stack_b);
 	find_moves(stack_a, stack_b);
-	// printf("stack a after find moves:\n");
-	// print_list(stack_a);
+	// printf("stack_b after find_moves\n");
+	// print_list(stack_b);
 	// printf("-----\n");
-	printf("stack_b after find_moves\n");
-	print_list(stack_b);
-	printf("-----\n");
-  sort_3(stack_a);
-  printf("stack_a after find_moves\n");
-	print_list(stack_a);
-	printf("-----\n");
-
+	sort_3(stack_a);
 	push_back(stack_a, stack_b);
 
 	//trash_list(&stack_b);
@@ -337,10 +319,22 @@ int	sort_turk(t_lst *stack_a)
 
 void	final_sort(t_lst *stack, long min)
 {
-	while (*stack->head->data != min)
-	{
-		ra(stack);
-	}
+  t_stack *roaming;
+
+  roaming = stack->head;
+	while (*roaming->data != min)
+		roaming = roaming->next;
+    
+  if (is_after_median(stack, roaming) == TRUE)
+  {
+    while (stack->head != roaming)
+      rra(stack);
+  }
+  else
+  {
+    while(stack->head != roaming)
+      ra(stack);
+  }
 }
 
 int	main(int ac, char **av)
@@ -356,11 +350,11 @@ int	main(int ac, char **av)
 	sort_turk(stack_a);
 	find_extremes(stack_a, extremes);
 	final_sort(stack_a, *extremes[0]); //to opimize
-	printf("_________\n");
+/*	printf("_________\n");
 	printf("FINAL LIST\n");
 	printf("________\n");
 	print_list(stack_a);
-/*
+
 	t_stack *current;
 	current = stack_a->head;
 	while (i < stack_a->size)
@@ -371,5 +365,6 @@ int	main(int ac, char **av)
 	}
 	trash_list(&stack_a);
  	ft_free(args_array);
+-442 -818 -119 863 -136 -469 431 -54 -303 -866 579 -328 827 26 733 601 126 -741 195 767 -411 -891 -113 -831 -190 398 761
 */
 }

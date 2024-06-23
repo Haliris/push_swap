@@ -21,12 +21,12 @@ void	synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b)
 		cost_a--;
 		cost_b--;
 	}
-	if (cost_a)
+	while (cost_a)
 	{
 		rra(a);
 		cost_a--;
 	}
-	if (cost_b)
+	while (cost_b)
 	{
 		rrb(b);
 		cost_b--;

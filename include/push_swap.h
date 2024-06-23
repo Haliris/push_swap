@@ -88,4 +88,7 @@ void		rotate_b(t_lst *stack_b, t_stack *node, t_lst *stack_a, size_t cost_b);
 
 
 size_t  find_extreme_pos(t_lst *stack, long data, int *after_median);
+
+void  print_list(t_lst *stack);
+
 #endif
