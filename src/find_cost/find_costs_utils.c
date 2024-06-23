@@ -17,12 +17,10 @@ size_t	get_inter(size_t cost_a, size_t cost_b, t_stack *node)
 {
 	if (node->synchro == FALSE)
 		return (cost_b + cost_a);
-	if (cost_a < cost_b)
-		return (cost_b - cost_a);
-	else if (cost_b < cost_a)
-		return (cost_a - cost_b);
+	if (cost_a >= cost_b)
+		return (cost_a);
 	else
-		return (0);
+		return (cost_b);
 }
 
 int	is_after_median(t_lst *stack_a, t_stack *node)
