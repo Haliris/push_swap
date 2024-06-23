@@ -21,15 +21,19 @@ void	swap(t_lst *stack)
 	if (!stack || stack->size < 2)
 		return ;
 	new_head = stack->head->next;
-  old_head = stack->head;
-  stack->tail->next = new_head;
-  new_head->prev = stack->tail;
-  old_head->prev = new_head;
-  old_head->next = new_head->next;
-  new_head->next = old_head;
-  stack->head = new_head;
-  stack->head->next = old_head;
- }
+  	old_head = stack->head;
+	new_head->next->prev = old_head;
+
+    old_head->next = new_head->next;
+	old_head->prev = new_head;
+    
+
+    new_head->prev = stack->tail;
+	new_head->next = old_head;
+	
+    stack->tail->next = new_head;
+  	stack->head = new_head;
+}
 
 void	sa(t_lst *stack_a)
 {

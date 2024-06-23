@@ -157,11 +157,6 @@ size_t		parse_a_up(t_lst *stack, long *data, int prospect)
 	cost = 0;
 	depth = 1;
 	roaming = stack->tail;
-	if (stack->size >= 4)
-	{
-		print_list(stack);
-		exit(0);
-	}
 	while (roaming != stack->head)
 	{
 		if (*data < *roaming->data && *roaming->data <= prospect)

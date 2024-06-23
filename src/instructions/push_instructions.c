@@ -25,7 +25,6 @@ void	remove_node_front(t_lst	*stack)
 		stack->head = stack->head->next;
 		stack->head->prev = stack->tail;
 		stack->tail->next = stack->head;
-
 	}
 	else
 	{
