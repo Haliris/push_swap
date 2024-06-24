@@ -6,7 +6,7 @@
 /*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:12:55 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/21 11:54:10 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:06:19 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	remove_node_front(t_lst	*stack)
 
 void	push(t_lst *giver, t_lst *receiver)
 {
-	t_stack	*giver_temp;
 
 	if (giver->size == 0)
 		return ;

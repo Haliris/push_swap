@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:27:32 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 16:31:03 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:03:35 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	perform_move(t_lst *stack_a, t_lst *stack_b)
 	pb(stack_a, stack_b);
 }
 
-void	update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med)
+void	update_cost(t_lst *sa, t_lst *sb, long *extreme[])
 {
 	t_stack	*roaming;
 	size_t	index;

@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:45:00 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 16:28:01 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:04:27 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,11 @@ void	find_extremes(t_lst *stack, long *extremes[])
 void	find_moves(t_lst *stack_a, t_lst *stack_b)
 {
 	long	*extremes[2];
-	int		median;
 
-	median = MEDIAN(stack_a);
 	while (stack_a->size > 3)
 	{
 		find_extremes(stack_b, extremes);
-		update_cost(stack_a, stack_b, extremes, median);
+		update_cost(stack_a, stack_b, extremes);
 		perform_move(stack_a, stack_b);
 	}
 }

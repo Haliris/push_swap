@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 16:55:47 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:03:59 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			rrr(t_lst *a, t_lst *b);
 
 void			find_extremes(t_lst *stack, long *extremes[]);
 size_t			find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data);
-void			update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med);
+void			update_cost(t_lst *sa, t_lst *sb, long *extreme[]);
 size_t			get_inter(size_t cost_a, size_t cost_b, t_stack *node);
 int				is_after_median(t_lst *stack_a, t_stack *node);
 size_t			parse_b_down_extreme(t_lst *sb, long *extreme);
@@ -79,11 +79,11 @@ size_t			get_median(t_lst *stack);
 void			rotate_a(t_lst *stack_a, t_stack *node, size_t cost_a);
 void			rotate_b(t_lst *sb, t_stack *node, t_lst *sa, size_t cost);
 
+void			push_back(t_lst *sa, t_lst *stack_b);
 size_t			parse_a_down(t_lst *stack, long *data, int prospect);
 size_t			parse_a_up(t_lst *stack, long *data, int prospect);
 size_t			parse_a_down_extreme(t_lst *stack, long data);
 size_t			parse_a_up_extreme(t_lst *stack, long data);
-
 size_t			find_extreme_pos(t_lst *stack, long data, int *after_median);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 11:28:21 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 16:58:27 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:03:04 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ size_t	find_position(t_lst *stack_a, long *data, int *after_median)
 	size_t	cost_up;
 	size_t	cost_down;
 	int		maximum;
-	t_stack	*roaming;
 
 	maximum = INT_MAX;
 	cost_up = parse_a_up(stack_a, data, maximum);

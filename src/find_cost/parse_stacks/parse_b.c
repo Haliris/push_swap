@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 11:20:42 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 16:27:29 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:05:57 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ size_t	parse_b_up(t_lst *sb, long *data)
 
 size_t	find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data)
 {
-	t_stack	*roaming;
 	size_t	cost_up;
 	size_t	cost_down;
 
