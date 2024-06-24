@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:32:25 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/21 11:29:22 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:30:22 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ void	trash_list(t_lst **lst)
 	}
 	roaming = (*lst)->head;
 	i = 0;
-	while (i < (*lst)->size - 1)
+	while (i < (*lst)->size)
 	{
 		trash = roaming;
 		roaming = roaming->next;
-		free(trash);
+		if (trash)
+			free(trash);
 		i++;
 	}
-	free(roaming);
 	free(*lst);
 	*lst = NULL;
 }

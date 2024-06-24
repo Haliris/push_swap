@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/21 18:03:29 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:16:13 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <limits.h>
 # define TRUE 1
 # define FALSE 0
-# define MEDIAN(stack) (((stack->size) + (stack->size % 2)) / 2);
+# define MEDIAN(stack) ((stack_a->size / 2) + (stack_a->size % 2));
 
 typedef struct s_stack
 {
@@ -69,7 +69,10 @@ size_t			find_b_cost(t_lst *la, t_stack *sa, t_lst *sb, long *extreme[]);
 void			update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med);
 size_t			get_inter(size_t cost_a, size_t cost_b, t_stack *node);
 int				is_after_median(t_lst *stack_a, t_stack *node);
-void			set_synchro(size_t median, size_t index, t_lst *lst_a, t_stack *sa);
+size_t			parse_b_down_extreme(t_lst *sb, long *extreme);
+size_t			parse_b_up_extreme(t_lst *sb, long *extreme);
+t_stack	*		find_cheapest_move(t_lst *sa);
+void			find_moves(t_lst *stack_a, t_lst *stack_b);
 
 t_stack			*find_cheapest_move(t_lst *sa);
 void			synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
@@ -80,15 +83,17 @@ void			perform_move(t_lst *stack_a, t_lst *stack_b);
 void			find_moves(t_lst *stack_a, t_lst *stack_b);
 size_t			get_median(t_lst *stack);
 
-void		synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
-void		synchro_move_up(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
-void		synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node);
-void		rotate_a(t_lst *stack_a, t_stack *node, size_t cost_a);
-void		rotate_b(t_lst *stack_b, t_stack *node, t_lst *stack_a, size_t cost_b);
+void			synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
+void			synchro_move_up(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
+void			synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node);
+void			rotate_a(t_lst *stack_a, t_stack *node, size_t cost_a);
+void			rotate_b(t_lst *stack_b, t_stack *node, t_lst *stack_a, size_t cost_b);
 
+size_t			parse_a_down(t_lst *stack, long *data, int prospect);
+size_t			parse_a_up(t_lst *stack, long *data, int prospect);
+size_t			parse_a_down_extreme(t_lst *stack, long data);
+size_t			parse_a_up_extreme(t_lst *stack, long data);
 
-size_t  find_extreme_pos(t_lst *stack, long data, int *after_median);
-
-void  print_list(t_lst *stack);
+size_t			find_extreme_pos(t_lst *stack, long data, int *after_median);
 
 #endif

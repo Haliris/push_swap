@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_costs_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:45:00 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/21 11:15:10 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:13:22 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_after_median(t_lst *stack_a, t_stack *node)
 	t_stack	*roaming;
 
  	index = 1;
-	median = (stack_a->size / 2) + (stack_a->size % 2);
+	median = MEDIAN(stack_a);
 	roaming = stack_a->head;
 	while (roaming != node)
 	{
@@ -40,4 +40,24 @@ int	is_after_median(t_lst *stack_a, t_stack *node)
 	if (index > median)
 		return (1);
 	return (0);
+}
+
+void	find_extremes(t_lst *stack, long *extremes[])
+{
+	t_stack	*roaming;
+	size_t 	index;
+
+	index = 0;
+	roaming = stack->head;
+	extremes[0] = roaming->data;
+	extremes[1] = roaming->data;
+	while (index < stack->size)
+	{
+		if (*roaming->data > *extremes[1])
+			extremes[1] = roaming->data;
+		else if (*roaming->data < *extremes[0])
+			extremes[0] = roaming->data;
+		roaming = roaming->next;
+		index ++;
+	}
 }

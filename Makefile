@@ -6,13 +6,13 @@
 #    By: jteissie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 11:52:05 by jteissie          #+#    #+#              #
-#    Updated: 2024/06/21 18:31:48 by jteissie         ###   ########.fr        #
+#    Updated: 2024/06/24 11:33:35 by jteissie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CCFLAGS = -Wall -Werror -Wextra
+CCFLAGS = = -Wall -Werror -Wextra
 
 NAME = push_swap
 
