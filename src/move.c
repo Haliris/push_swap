@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:21:56 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 15:47:05 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:56:10 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,22 @@ void	rotate_a(t_lst *stack_a, t_stack *node, size_t cost_a)
 	}
 }
 
-void	rotate_b(t_lst *stack_b, t_stack *node, t_lst *stack_a, size_t cost_b)
+void	rotate_b(t_lst *sb, t_stack *node, t_lst *sa, size_t cost)
 {
-	if (is_after_median(stack_a, node) == TRUE)
+	if (is_after_median(sa, node) == TRUE)
 	{
-		while (cost_b)
+		while (cost)
 		{
-			rb(stack_b);
-			cost_b--;
+			rb(sb);
+			cost--;
 		}
 	}
 	else
 	{
-		while (cost_b)
+		while (cost)
 		{
-			rrb(stack_b);
-			cost_b--;
+			rrb(sb);
+			cost--;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 16:28:21 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:55:47 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,14 @@ typedef struct s_stack_list
 long			ft_check_atol(char *str);
 void			handle_error(int code);
 long			*parse_args(char **av, size_t size);
-t_stack			*create_node(long *content);
 void			add_node(t_lst *stack, long *data);
 void			add_node_front(t_lst *stack, long *data);
-void			remove_node_front(t_lst	*stack);
 void			replace_head(t_lst *stack, t_stack *new_head);
 void			replace_tail(t_lst *stack, t_stack *new_tail);
 t_lst			*initialize(long *args, size_t size);
 void			trash_list(t_lst **lst);
 void			ft_free(void *ptr);
+
 void			swap(t_lst *stack);
 void			sa(t_lst *stack_a);
 void			sb(t_lst *stack_b);
@@ -64,30 +63,21 @@ void			rrr(t_lst *a, t_lst *b);
 
 void			find_extremes(t_lst *stack, long *extremes[]);
 size_t			find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data);
-size_t			find_b_extreme(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme);
-size_t			find_b_cost(t_lst *la, t_stack *sa, t_lst *sb, long *extreme[]);
 void			update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med);
 size_t			get_inter(size_t cost_a, size_t cost_b, t_stack *node);
 int				is_after_median(t_lst *stack_a, t_stack *node);
 size_t			parse_b_down_extreme(t_lst *sb, long *extreme);
 size_t			parse_b_up_extreme(t_lst *sb, long *extreme);
-t_stack			*find_cheapest_move(t_lst *sa);
 void			find_moves(t_lst *stack_a, t_lst *stack_b);
 
-t_stack			*find_cheapest_move(t_lst *sa);
-void			synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
-void			synchro_move_up(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
 void			synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node);
 void			move(t_stack *node, t_lst *stack_a, t_lst *stack_b);
 void			perform_move(t_lst *stack_a, t_lst *stack_b);
 void			find_moves(t_lst *stack_a, t_lst *stack_b);
 size_t			get_median(t_lst *stack);
 
-void			synchro_move_down(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
-void			synchro_move_up(size_t cost_a, size_t cost_b, t_lst *a, t_lst *b);
-void			synchro_rotate(t_lst *stack_a, t_lst *stack_b, t_stack *node);
 void			rotate_a(t_lst *stack_a, t_stack *node, size_t cost_a);
-void			rotate_b(t_lst *stack_b, t_stack *node, t_lst *stack_a, size_t cost_b);
+void			rotate_b(t_lst *sb, t_stack *node, t_lst *sa, size_t cost);
 
 size_t			parse_a_down(t_lst *stack, long *data, int prospect);
 size_t			parse_a_up(t_lst *stack, long *data, int prospect);

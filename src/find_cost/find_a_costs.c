@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 11:28:21 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 16:25:23 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:58:27 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,22 @@ size_t	find_position(t_lst *stack_a, long *data, int *after_median)
 	}
 }
 
-void	push_back(t_lst *stack_a, t_lst *stack_b)
+void	push_back(t_lst *sa, t_lst *stack_b)
 {
 	t_stack	*roaming;
 	long	*extremes[2];
-	int		after_median;
+	int		post_med;
 
 	roaming = stack_b->head;
 	while (stack_b->size)
 	{
-		after_median = FALSE;
-		find_extremes(stack_a, extremes);
+		post_med = FALSE;
+		find_extremes(sa, extremes);
 		if (*roaming->data > *extremes[1] || *roaming->data < *extremes[0])
-			roaming->cost[0] = find_extreme_pos(stack_a, *extremes[0], &after_median);
+			roaming->cost[0] = find_extreme_pos(sa, *extremes[0], &post_med);
 		else
-			roaming->cost[0] = find_position(stack_a, roaming->data, &after_median);
-		move_back(roaming->cost[0], stack_a, stack_b, after_median);
+			roaming->cost[0] = find_position(sa, roaming->data, &post_med);
+		move_back(roaming->cost[0], sa, stack_b, post_med);
 		if (stack_b->size)
 			roaming = stack_b->head;
 	}
