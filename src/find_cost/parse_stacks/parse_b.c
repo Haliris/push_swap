@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 11:20:42 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 18:05:57 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:38:42 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ size_t	find_b_inter(t_lst *la, t_stack *sa, t_lst *lb, long *data)
 
 	cost_down = parse_b_down(lb, data);
 	cost_up = parse_b_up(lb, data);
-	if (0 <= cost_up)
+	if (cost_down <= cost_up)
 	{
 		if (is_after_median(la, sa) == FALSE)
 			sa->synchro = TRUE;
