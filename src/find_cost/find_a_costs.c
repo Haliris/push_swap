@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 11:28:21 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 13:04:17 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:25:23 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void	move_back(size_t cost, t_lst *stack_a, t_lst *stack_b, int after_median)
 {
-
 	if (after_median)
 	{
 		while (cost)
@@ -35,7 +34,7 @@ void	move_back(size_t cost, t_lst *stack_a, t_lst *stack_b, int after_median)
 	pa(stack_a, stack_b);
 }
 
-size_t  find_extreme_pos(t_lst *stack, long data, int *after_median)
+size_t	find_extreme_pos(t_lst *stack, long data, int *after_median)
 {
 	size_t	cost_up;
 	size_t	cost_down;
@@ -45,7 +44,7 @@ size_t  find_extreme_pos(t_lst *stack, long data, int *after_median)
 	if (cost_down <= cost_up)
 	{
 		*after_median = FALSE;
-		return(cost_down);
+		return (cost_down);
 	}
 	else
 	{
@@ -54,7 +53,7 @@ size_t  find_extreme_pos(t_lst *stack, long data, int *after_median)
 	}
 }
 
-size_t		find_position(t_lst *stack_a, long *data, int *after_median)
+size_t	find_position(t_lst *stack_a, long *data, int *after_median)
 {
 	size_t	cost_up;
 	size_t	cost_down;
@@ -76,10 +75,10 @@ size_t		find_position(t_lst *stack_a, long *data, int *after_median)
 void	push_back(t_lst *stack_a, t_lst *stack_b)
 {
 	t_stack	*roaming;
-	long    *extremes[2];
-	roaming = stack_b->head;
+	long	*extremes[2];
 	int		after_median;
 
+	roaming = stack_b->head;
 	while (stack_b->size)
 	{
 		after_median = FALSE;

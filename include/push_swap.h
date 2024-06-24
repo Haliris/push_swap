@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 13:16:13 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:28:21 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ size_t			get_inter(size_t cost_a, size_t cost_b, t_stack *node);
 int				is_after_median(t_lst *stack_a, t_stack *node);
 size_t			parse_b_down_extreme(t_lst *sb, long *extreme);
 size_t			parse_b_up_extreme(t_lst *sb, long *extreme);
-t_stack	*		find_cheapest_move(t_lst *sa);
+t_stack			*find_cheapest_move(t_lst *sa);
 void			find_moves(t_lst *stack_a, t_lst *stack_b);
 
 t_stack			*find_cheapest_move(t_lst *sa);

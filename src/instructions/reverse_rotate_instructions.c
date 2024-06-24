@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_rotate_instructions.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 14:09:24 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/19 14:28:19 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:20:10 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	reverse_rotate(t_lst *stack)
 {
-  if (!stack->head || !stack->tail)
-    return ;
+	if (!stack->head || !stack->tail)
+		return ;
 	stack->head = stack->tail;
 	stack->tail = stack->tail->prev;
 }

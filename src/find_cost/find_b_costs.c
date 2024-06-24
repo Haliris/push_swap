@@ -6,12 +6,35 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:27:32 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 13:33:11 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:29:04 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "push_swap.h"
+
+t_stack	*find_cheapest_move(t_lst *sa)
+{
+	t_stack	*roaming;
+	t_stack	*prospect;
+	size_t	min_cost;
+	size_t	current_cost;
+
+	roaming = sa->head;
+	prospect = sa->head;
+	min_cost = get_inter(roaming->cost[0], roaming->cost[1], roaming);
+	while (roaming != sa->tail)
+	{
+		current_cost = get_inter(roaming->cost[0], roaming->cost[1], roaming);
+		if (min_cost > current_cost)
+		{
+			min_cost = current_cost;
+			prospect = roaming;
+		}
+		roaming = roaming->next;
+	}
+	return (prospect);
+}
 
 size_t	find_b_extreme(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme)
 {
@@ -47,27 +70,23 @@ size_t	find_b_cost(t_lst *lst_a, t_stack *sa, t_lst *sb, long *extreme[])
 	return (cost);
 }
 
-t_stack	*find_cheapest_move(t_lst *sa)
+void	perform_move(t_lst *stack_a, t_lst *stack_b)
 {
-	t_stack *roaming;
-	t_stack	*prospect;
-	size_t	min_cost;
-	size_t	current_cost;
+	t_stack	*to_move;
+	size_t	cost_a;
+	size_t	cost_b;
 
-	roaming = sa->head;
-	prospect = sa->head;
-	min_cost = get_inter(roaming->cost[0], roaming->cost[1], roaming);
-	while (roaming != sa->tail)
+	to_move = find_cheapest_move(stack_a);
+	cost_a = to_move->cost[0];
+	cost_b = to_move->cost[1];
+	if (to_move->synchro == TRUE)
+		synchro_rotate(stack_a, stack_b, to_move);
+	else
 	{
-		current_cost = get_inter(roaming->cost[0], roaming->cost[1], roaming);
-		if (min_cost > current_cost)
-		{
-			min_cost = current_cost;
-			prospect = roaming;
-		}
-		roaming = roaming->next;
+		rotate_b(stack_b, to_move, stack_a, cost_b);
+		rotate_a(stack_a, to_move, cost_a);
 	}
-	return (prospect);
+	pb(stack_a, stack_b);
 }
 
 void	update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med)
@@ -86,19 +105,5 @@ void	update_cost(t_lst *sa, t_lst *sb, long *extreme[], int med)
 		roaming = roaming->next;
 		index++;
 		after_median = FALSE;
-	}
-}
-
-void	find_moves(t_lst *stack_a, t_lst *stack_b)
-{
-	long	*extremes[2];
-	int		median;
-
-	median = MEDIAN(stack_a);
-	while (stack_a->size > 3)
-	{
-		find_extremes(stack_b, extremes);
-		update_cost(stack_a, stack_b, extremes, median);
-		perform_move(stack_a, stack_b);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate_instructions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:53:56 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/21 11:50:16 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:20:01 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	rotate(t_lst *stack)
 {
-  if (!stack->tail || !stack->head)
-    return ;
+	if (!stack->tail || !stack->head)
+		return ;
 	stack->tail = stack->tail->next;
 	stack->head = stack->head->next;
 }

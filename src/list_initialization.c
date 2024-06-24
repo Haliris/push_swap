@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_initialization.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:06:59 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/20 15:29:29 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:25:06 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	add_node_front(t_lst *stack, long *data)
 
 t_lst	*initialize(long *args, size_t size)
 {
-	size_t			i;
+	size_t	i;
 	t_lst	*stack;
 
 	i = 0;

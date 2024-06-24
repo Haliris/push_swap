@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 11:20:42 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 11:40:12 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:27:29 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ size_t	parse_b_down(t_lst *sb, long *data)
 	roaming = sb->head;
 	cost = 0;
 	depth = 0;
-
 	while (depth < sb->size)
 	{
 		if (*data > *roaming->data && *roaming->data >= biggest_min)
@@ -49,7 +48,6 @@ size_t	parse_b_up(t_lst *sb, long *data)
 	roaming = sb->tail;
 	cost = 0;
 	depth = 1;
-
 	while (depth <= sb->size)
 	{
 		if (*data > *roaming->data && *roaming->data >= biggest_min)
