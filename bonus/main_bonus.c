@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include "push_swap.h"
 
 void	a_instruction(t_lst *sa, t_lst *sb, char *line)
