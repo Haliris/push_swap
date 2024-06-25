@@ -91,7 +91,7 @@ void	check(t_lst	*sa)
 	}
 	if (execute_instructions(sa, sb) == -1)
 		ft_putstr_fd("Error\n", STDERR_FILENO);
-	if (is_sorted(sa) == TRUE)
+	else if (is_sorted(sa) == TRUE)
 		ft_putstr_fd("OK\n", STDOUT_FILENO);
 	else
 		ft_putstr_fd("KO\n", STDOUT_FILENO);

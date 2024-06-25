@@ -60,18 +60,18 @@ OBJ_DIR = obj/
 
 OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC_FILES)) 
 
-BONUS_OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)%.o, $(BONUS_FILES)) 
+BONUS_OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)bonus_%.o, $(BONUS_FILES)) 
 
 all: $(NAME)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR) $(addprefix $(OBJ_DIR), $(sort $(dir $(SRC_FILES))))
 
-$(OBJ_FILES): $(OBJ_DIR)%.o: %.c | $(OBJ_DIR)
+$(OBJ_DIR)%.o: %.c | $(OBJ_DIR)
 	mkdir -p $(dir $@)
 	$(CC) $(CCFLAGS) -c $< $(INCLUDE) -o $@
 
-$(BONUS_OBJ_FILES): $(OBJ_DIR)%.o: %.c | $(OBJ_DIR)
+$(OBJ_DIR)bonus_%.o: %.c | $(OBJ_DIR)
 	mkdir -p $(dir $@)
 	$(CC) $(CCFLAGS) -c $< $(INCLUDE) $(BONUS_INCLUDE) -o $@
 
@@ -96,4 +96,4 @@ fclean : clean
 
 re : fclean clean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re bonus
