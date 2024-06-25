@@ -74,10 +74,8 @@ int	main(int ac, char **av)
 {
 	t_lst	*stack_a;
 	long	*args_array;
-	int		i;
 	long	*extremes[2];
 
-	i = 0;
 	if (ac <= 2)
 		exit(EXIT_FAILURE);
 	args_array = parse_args(av, ac);

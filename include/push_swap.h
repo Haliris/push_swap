@@ -35,14 +35,11 @@ typedef struct s_stack_list
 }	t_lst;
 
 int				is_sorted(t_lst *stack);
-int				check_digit(char *str);
-void			check_overflow(long number, int sign, long *args); 
-void			skip_whitespaces(char *str, int *index);
-int				check_sign(char c, int *index);
+int				find_duplicates(long *args, int size);
 
 long			ft_check_atol(char *str, long *args);
 void			handle_error(int code);
-long			*parse_args(char **av, size_t size);
+long			*parse_args(char **av, int size);
 void			add_node(t_lst *stack, long *data);
 void			add_node_front(t_lst *stack, long *data);
 void			replace_head(t_lst *stack, t_stack *new_head);

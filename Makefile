@@ -25,7 +25,7 @@ SRC_FILES = main.c \
 			move.c \
 			utils.c \
 			atol_utils.c \
-			eval_utils.c \
+			check_utils.c \
 			list_initialization.c \
 			initialization_utils.c \
 			find_a_costs.c \

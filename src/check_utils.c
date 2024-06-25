@@ -15,7 +15,7 @@
 
 int	is_sorted(t_lst *stack)
 {
-	t_stack *roaming;
+	t_stack	*roaming;
 	size_t	index;
 
 	roaming = stack->head;
@@ -28,4 +28,25 @@ int	is_sorted(t_lst *stack)
 		index++;
 	}
 	return (TRUE);
+}
+
+int	find_duplicates(long *args, int size)
+{
+	int	main_index;
+	int	roaming_index;	
+
+	main_index = 0;
+	roaming_index = 1;
+	while (main_index < size)
+	{
+		while (roaming_index < size - main_index)
+		{
+			if (args[main_index] == args[roaming_index])
+				return (TRUE);
+			roaming_index++;
+		}
+		main_index++;
+		roaming_index = main_index + 1;
+	}
+	return (FALSE);
 }

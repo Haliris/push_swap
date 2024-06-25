@@ -100,10 +100,10 @@ t_lst	*initialize(long *args, size_t size)
 	return (stack);
 }
 
-long	*parse_args(char **av, size_t size)
+long	*parse_args(char **av, int size)
 {
-	size_t		i;
-	long		*args_array;
+	int		i;
+	long	*args_array;
 
 	i = 1;
 	args_array = ft_calloc(size, sizeof(long));
@@ -113,6 +113,11 @@ long	*parse_args(char **av, size_t size)
 	{
 		args_array[i - 1] = ft_check_atol(av[i], args_array);
 		i++;
+	}
+	if (find_duplicates(args_array, size) == TRUE)
+	{
+		free(args_array);
+		handle_error(EXIT_FAILURE);
 	}
 	return (args_array);
 }

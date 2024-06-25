@@ -19,31 +19,6 @@ void	handle_error(int code)
 	exit(code);
 }
 
-long	ft_check_atol(char *str, long *args)
-{
-	long long	result;
-	int			sign;
-	int			i;
-
-	i = 0;
-	result = 0;
-	skip_whitespaces(str, &i);
-	sign = check_sign(str[i], &i);
-	if (check_digit(&str[i]) == -1)
-	{
-		free(args);
-		handle_error(EXIT_FAILURE);
-	}
-	while (str[i])
-	{
-		result = result * 10 + (str[i] - 48);
-		i++;
-	}
-	check_overflow(result, sign, args);
-	result *= sign;
-	return (result);
-}
-
 void	trash_list(t_lst **lst)
 {
 	t_stack	*roaming;

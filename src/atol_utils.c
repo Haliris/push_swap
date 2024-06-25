@@ -27,9 +27,8 @@ int	check_digit(char *str)
 	return (0);
 }
 
-void	check_overflow(long number, int sign, long *args) 
+void	check_overflow(long number, int sign, long *args)
 {
-
 	if (number*sign < INT_MIN || number*sign > INT_MAX)
 	{
 		free(args);
@@ -59,4 +58,29 @@ int	check_sign(char c, int *index)
 			return (-1);
 	}
 	return (1);
+}
+
+long	ft_check_atol(char *str, long *args)
+{
+	long long	result;
+	int			sign;
+	int			i;
+
+	i = 0;
+	result = 0;
+	skip_whitespaces(str, &i);
+	sign = check_sign(str[i], &i);
+	if (check_digit(&str[i]) == -1)
+	{
+		free(args);
+		handle_error(EXIT_FAILURE);
+	}
+	while (str[i])
+	{
+		result = result * 10 + (str[i] - 48);
+		i++;
+	}
+	check_overflow(result, sign, args);
+	result *= sign;
+	return (result);
 }
