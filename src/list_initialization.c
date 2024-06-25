@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:06:59 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 16:25:06 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/25 12:48:42 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ long	*parse_args(char **av, size_t size)
 		handle_error(EXIT_FAILURE);
 	while (i < size)
 	{
-		args_array[i - 1] = ft_check_atol(av[i]);
+		args_array[i - 1] = ft_check_atol(av[i], args_array);
 		i++;
 	}
 	return (args_array);

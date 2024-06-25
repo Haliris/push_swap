@@ -6,7 +6,7 @@
 #    By: jteissie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 11:52:05 by jteissie          #+#    #+#              #
-#    Updated: 2024/06/24 18:08:48 by jteissie         ###   ########.fr        #
+#    Updated: 2024/06/25 16:27:11 by jteissie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ INCLUDE =	-I ./include/ \
 SRC_FILES = main.c \
 			move.c \
 			utils.c \
+			atol_utils.c \
+			eval_utils.c \
 			list_initialization.c \
 			initialization_utils.c \
 			find_a_costs.c \

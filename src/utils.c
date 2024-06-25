@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:32:25 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 11:30:22 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:29:14 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,42 +19,28 @@ void	handle_error(int code)
 	exit(code);
 }
 
-void	check_digit(char *str)
+long	ft_check_atol(char *str, long *args)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			handle_error(EXIT_FAILURE);
-		i++;
-	}
-}
-
-long	ft_check_atol(char *str)
-{
-	long	result;
-	int		negative;
-	int		i;
+	long long	result;
+	int			sign;
+	int			i;
 
 	i = 0;
 	result = 0;
-	negative = 0;
-	if (str[i] == '-' || str[i] == '+')
+	skip_whitespaces(str, &i);
+	sign = check_sign(str[i], &i);
+	if (check_digit(&str[i]) == -1)
 	{
-		if (str[i] == '-')
-			negative = 1;
-		i++;
+		free(args);
+		handle_error(EXIT_FAILURE);
 	}
-	check_digit(&str[i]);
 	while (str[i])
 	{
 		result = result * 10 + (str[i] - 48);
 		i++;
 	}
-	if (negative)
-		result *= -1;
+	check_overflow(result, sign, args);
+	result *= sign;
 	return (result);
 }
 

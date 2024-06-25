@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 18:26:41 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:32:18 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	sort_3(t_lst *stack)
 	long	*extremes[2];
 
 	find_extremes(stack, extremes);
+	if (stack->size == 2)
+	{
+		if (*stack->head->data > *stack->head->next->data)
+			ra(stack);
+	}
 	while (*stack->tail->data != *extremes[1])
 		ra(stack);
 	if (*stack->head->data != *extremes[0])
@@ -73,12 +78,14 @@ int	main(int ac, char **av)
 	long	*extremes[2];
 
 	i = 0;
-	if (ac < 2)
-		handle_error(EXIT_FAILURE);
+	if (ac <= 2)
+		exit(EXIT_FAILURE);
 	args_array = parse_args(av, ac);
 	stack_a = initialize(args_array, ac);
-	sort_turk(stack_a);
+	if (is_sorted(stack_a) == FALSE)
+		sort_turk(stack_a);
 	find_extremes(stack_a, extremes);
 	final_sort(stack_a, *extremes[0]);
 	trash_list(&stack_a);
+	ft_free(args_array);
 }

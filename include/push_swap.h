@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 11:54:09 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/24 18:03:59 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:29:40 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,13 @@ typedef struct s_stack_list
 	size_t	size;
 }	t_lst;
 
-long			ft_check_atol(char *str);
+int				is_sorted(t_lst *stack);
+int				check_digit(char *str);
+void			check_overflow(long number, int sign, long *args); 
+void			skip_whitespaces(char *str, int *index);
+int				check_sign(char c, int *index);
+
+long			ft_check_atol(char *str, long *args);
 void			handle_error(int code);
 long			*parse_args(char **av, size_t size);
 void			add_node(t_lst *stack, long *data);
