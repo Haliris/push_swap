@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:06:59 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/26 11:15:02 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:24:08 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ void	add_node(t_lst *stack, long *data)
 		stack->head = create_node(data);
 		stack->size += 1;
 		if (!stack->head)
-		{
-			trash_list(&stack);
-			return ;
-		}
+			free(stack);
 		return ;
 	}
 	new_tail = create_node(data);

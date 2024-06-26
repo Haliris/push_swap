@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:22:18 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/26 11:43:36 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:03:21 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	check_digit(char *str)
 	int	i;
 
 	i = 0;
+	if (!str[i])
+		return (-1);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))

@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:41:51 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/26 11:42:28 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:33:07 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	main(int ac, char **av)
 	long	*args_array;
 	t_lst	*stack;
 
+	if (ac < 2)
+		handle_error(EXIT_FAILURE);
 	args_array = parse_args(av, ac);
 	stack = initialize(args_array, ac);
 	check(stack);

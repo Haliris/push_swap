@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteissie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:47:47 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/21 14:36:45 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:26:05 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	replace_head(t_lst *stack, t_stack *new_head)
 {
+	if (!stack || !new_head)
+		return ;
 	if (!stack->tail)
 	{
 		stack->head->prev = new_head;
@@ -33,6 +35,8 @@ void	replace_head(t_lst *stack, t_stack *new_head)
 
 void	replace_tail(t_lst *stack, t_stack *new_tail)
 {
+	if (!stack || !new_tail)
+		return ;
 	if (!stack->tail)
 	{
 		new_tail->prev = stack->head;

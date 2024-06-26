@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:15:19 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/25 16:32:18 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:31:52 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ int	sort_turk(t_lst *stack_a)
 
 	stack_b = ft_calloc(1, sizeof(t_lst));
 	if (!stack_b)
+	{
+		trash_list(&stack_a);
 		handle_error(EXIT_FAILURE);
+	}
 	stack_b->head = NULL;
 	stack_b->tail = NULL;
 	stack_b->size = 0;
@@ -76,14 +79,19 @@ int	main(int ac, char **av)
 	long	*args_array;
 	long	*extremes[2];
 
-	if (ac <= 2)
-		exit(EXIT_FAILURE);
+	if (ac < 2)
+		handle_error(EXIT_FAILURE);
 	args_array = parse_args(av, ac);
 	stack_a = initialize(args_array, ac);
-	if (is_sorted(stack_a) == FALSE)
+	if (!stack_a)
+	{
+		ft_free(args_array);
+		handle_error(EXIT_FAILURE);
+	}
+	if (is_sorted(stack_a) == FALSE && stack_a->size > 1)
 		sort_turk(stack_a);
 	find_extremes(stack_a, extremes);
 	final_sort(stack_a, *extremes[0]);
-	trash_list(&stack_a);
 	ft_free(args_array);
+	trash_list(&stack_a);
 }
