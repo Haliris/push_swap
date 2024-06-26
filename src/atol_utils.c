@@ -6,7 +6,7 @@
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:22:18 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/26 12:03:21 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:54:39 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int	check_digit(char *str)
 
 void	check_overflow(long number, int sign, long *args)
 {
-	if (number * sign < INT_MIN || number * sign > INT_MAX)
+	long	predicted_result;
+
+	predicted_result = number * sign;
+	if (predicted_result < INT_MIN || predicted_result > INT_MAX)
 	{
 		free(args);
 		handle_error(EXIT_FAILURE);
