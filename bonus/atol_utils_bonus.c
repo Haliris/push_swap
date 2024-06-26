@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   atol_utils.c                                       :+:      :+:    :+:   */
+/*   atol_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jteissie <jteissie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:22:18 by jteissie          #+#    #+#             */
-/*   Updated: 2024/06/26 11:43:36 by jteissie         ###   ########.fr       */
+/*   Updated: 2024/06/26 11:42:56 by jteissie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 int	check_digit(char *str)
 {
